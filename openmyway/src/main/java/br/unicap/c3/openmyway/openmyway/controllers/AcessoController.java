@@ -21,12 +21,12 @@ public class AcessoController {
 		return acessoService.solicitarAcesso(codigoIdentificacao);
 	}
 	
-	@GetMapping("/gerarRelatorioAcesso")
+	@GetMapping("/gerarRelatorioAcessos")
 	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso(){
 		return acessoService.gerarRelatorioAcesso();
 	}
 	
-	@PostMapping("/gerarRelatorioAcessoPorData")
+	@PostMapping("/gerarRelatorioAcessosPorData")
 	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@RequestParam("data") String data){
 		return acessoService.gerarRelatorioAcessoPorData(data);
 	}
