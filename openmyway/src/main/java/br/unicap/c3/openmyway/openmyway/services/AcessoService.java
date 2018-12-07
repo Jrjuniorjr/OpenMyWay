@@ -31,7 +31,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuario não foi encontrado!");
 
 		}
 
