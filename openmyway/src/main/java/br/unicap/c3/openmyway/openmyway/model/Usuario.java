@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
+@Entity
+@Table(name="Usuario")
 public class Usuario {
 
 	@Id 

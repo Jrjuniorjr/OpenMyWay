@@ -7,6 +7,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+
+@Entity
+@Table(name="Acesso")
 public class Acesso {
 	@Id 
 	@Column (name = "id")
