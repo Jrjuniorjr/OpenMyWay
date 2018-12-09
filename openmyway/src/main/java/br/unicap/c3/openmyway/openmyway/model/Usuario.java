@@ -20,6 +20,13 @@ public class Usuario {
 	@Column (name = "codigoIdentificacao", unique=true)
 	private String codigoIdentificacao;
 	
+
+	@Column (name = "nome")
+	private String nome;
+	
+	@Column (name = "sobrenome")
+	private String sobrenome;
+	
 	@OneToMany (mappedBy = "usuario",
 			fetch=FetchType.LAZY)
 	private List<Acesso> acessos;
@@ -54,6 +61,22 @@ public class Usuario {
 
 	public void setAcessos(List<Acesso> acessos) {
 		this.acessos = acessos;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
 	
 	
