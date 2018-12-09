@@ -39,6 +39,8 @@ public class AcessoService {
 			
 			iAcessoDAO.save(acesso);
 			
+			return ResponseEntity.ok("Sucesso!");
+			
 		}
 		
 	}

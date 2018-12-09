@@ -11,6 +11,7 @@ import br.unicap.c3.openmyway.openmyway.services.UsuarioService;
 @RequestMapping("/acesso")
 public class AcessoController {
 
+	
 	@PostMapping("/acessar")
 	public ResponseEntity<String> acessar(@RequestBody String codigoIdentificacao){
 		
