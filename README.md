@@ -3,7 +3,9 @@
 Como usar:
 
 Observação 1: Trocar o simbolo '$' pelos valores desejados
+
 Observação 2: Todos os metodos são POST, exceto o gerarRelatorioAcessos, que é metodo GET
+
 Observação 3: Formato de data: DD/MM/YY
 
 urls
