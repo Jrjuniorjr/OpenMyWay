@@ -15,7 +15,7 @@ public class UsuarioService {
 	@Autowired
 	private IUsuarioDAO iUsuarioDAO;
 
-	public ResponseEntity cadastrarUsuario(String cpf, String codigoIdentificacao, String nome, String sobrenome) {
+	public ResponseEntity<String> cadastrarUsuario(String cpf, String codigoIdentificacao, String nome, String sobrenome) {
 		Usuario usuarioPorCodigo = iUsuarioDAO.findByCodigoIdentificacao(codigoIdentificacao);
 		Usuario usuarioPorCpf = iUsuarioDAO.findByCpf(cpf);
 		
@@ -96,7 +96,7 @@ public class UsuarioService {
 
 	}
 
-	public ResponseEntity deletarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
+	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
 
 		Usuario usuario = iUsuarioDAO.findByCodigoIdentificacao(codigoIdentificacao);
 
@@ -109,7 +109,7 @@ public class UsuarioService {
 		}
 	}
 
-	public ResponseEntity deletarUsuarioPorCpf(String cpf) {
+	public ResponseEntity<String> deletarUsuarioPorCpf(String cpf) {
 		Usuario usuario = iUsuarioDAO.findByCpf(cpf);
 
 		if (usuario == null) {

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
-import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
 import br.unicap.c3.openmyway.openmyway.dto.*;
@@ -23,9 +22,9 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	public ResponseEntity solicitarAcesso(String codigoIdentificacao) {
+	public ResponseEntity<String> solicitarAcesso(String codigoIdentificacao) {
 
-		ResponseEntity entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
 		Usuario usuario = (Usuario) entity.getBody();
 

@@ -8,7 +8,9 @@ Observação 2: Todos os metodos são POST, exceto o gerarRelatorioAcessos, que 
 
 Observação 3: Formato de data: DD/MM/YY
 
-urls
+URLS
+
+
 localhost:8080/usuario/cadastrar?cpf=$&codigoIdentificacao=$&nome=$&sobrenome=$
 
 localhost:8080/usuario/consultarPorCodigoIdentificacao?codigoIdentificacao=$

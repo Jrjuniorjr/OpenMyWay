@@ -1,6 +1,5 @@
 package br.unicap.c3.openmyway.openmyway.interfacesdao;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
