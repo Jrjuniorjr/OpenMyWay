@@ -22,7 +22,7 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	public ResponseEntity<String> solicitarAcesso(String codigoIdentificacao) {
+	public String solicitarAcesso(String codigoIdentificacao) {
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -30,7 +30,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuario não foi encontrado!");
+			return "O usuario não foi encontrado!";
 
 		}
 
@@ -44,7 +44,7 @@ public class AcessoService {
 
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok("Sucesso!");
+			return "Sucesso!";
 
 		}
 

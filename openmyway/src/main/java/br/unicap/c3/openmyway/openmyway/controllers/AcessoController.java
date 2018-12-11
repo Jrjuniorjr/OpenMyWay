@@ -17,7 +17,7 @@ public class AcessoController {
 	private AcessoService acessoService;
 	
 	@PostMapping("/solicitarAcesso")
-	public ResponseEntity<String> solicitarAcesso(@RequestParam("codigoIdentificacao") String codigoIdentificacao){
+	public String solicitarAcesso(@RequestParam("codigoIdentificacao") String codigoIdentificacao){
 		return acessoService.solicitarAcesso(codigoIdentificacao);
 	}
 	
