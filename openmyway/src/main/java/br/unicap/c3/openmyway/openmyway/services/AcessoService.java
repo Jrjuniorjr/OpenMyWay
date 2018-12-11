@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
-import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
 import br.unicap.c3.openmyway.openmyway.dto.*;
@@ -23,15 +22,15 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	public ResponseEntity solicitarAcesso(String codigoIdentificacao) {
+	public String solicitarAcesso(String codigoIdentificacao) {
 
-		ResponseEntity entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
 		Usuario usuario = (Usuario) entity.getBody();
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuario não foi encontrado!");
+			return "O usuario não foi encontrado!";
 
 		}
 
@@ -45,7 +44,7 @@ public class AcessoService {
 
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok("Sucesso!");
+			return "Sucesso!";
 
 		}
 
