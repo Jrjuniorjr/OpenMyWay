@@ -13,17 +13,21 @@ public class Acesso {
 	@Column (name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipoAcesso", columnDefinition="enum('Entrada', 'Saida')")
+	private TipoAcesso tipoAcesso;
+	
+	@ManyToOne(
+			fetch = FetchType.EAGER)
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
 	
 	@Column (name = "data")
 	private String data;
 	
 	@Column (name = "hora")
 	private String hora;
-
-	@ManyToOne(
-			fetch = FetchType.EAGER)
-	@JoinColumn(name = "idUsuario")
-	private Usuario usuario;
 	
 	public Integer getId() {
 		return id;
@@ -33,7 +37,22 @@ public class Acesso {
 		this.id = id;
 	}
 
-	
+	public TipoAcesso getTipoAcesso() {
+		return tipoAcesso;
+	}
+
+	public void setTipoAcesso(TipoAcesso tipoAcesso) {
+		this.tipoAcesso = tipoAcesso;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getData() {
 		return data;
 	}
@@ -48,14 +67,6 @@ public class Acesso {
 
 	public void setHora(String hora) {
 		this.hora = hora;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public void converterCalendarToStringAcesso() {

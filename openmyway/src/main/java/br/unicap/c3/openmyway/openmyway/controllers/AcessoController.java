@@ -3,6 +3,7 @@ package br.unicap.c3.openmyway.openmyway.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,14 @@ public class AcessoController {
 	@Autowired
 	private AcessoService acessoService;
 	
-	@PostMapping("/solicitarAcesso")
-	public String solicitarAcesso(@RequestParam("codigoIdentificacao") String codigoIdentificacao){
-		return acessoService.solicitarAcesso(codigoIdentificacao);
+	@GetMapping("/solicitarAcessoEntrada")
+	public HttpStatus solicitarAcessoEntrada(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+		return acessoService.solicitarAcessoEntrada(codigoIdentificacao);
+	}
+	
+	@GetMapping("/solicitarAcessoSaida")
+	public HttpStatus solicitarAcessoSaida(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+		return acessoService.solicitarAcessoSaida(codigoIdentificacao);
 	}
 	
 	@GetMapping("/gerarRelatorioAcessos")
@@ -26,8 +32,8 @@ public class AcessoController {
 		return acessoService.gerarRelatorioAcesso();
 	}
 	
-	@PostMapping("/gerarRelatorioAcessosPorData")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@RequestParam("data") String data){
+	@GetMapping("/gerarRelatorioAcessosPorData")
+	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@PathVariable String data){
 		return acessoService.gerarRelatorioAcessoPorData(data);
 	}
 	
