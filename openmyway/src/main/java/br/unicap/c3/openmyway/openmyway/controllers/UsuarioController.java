@@ -21,14 +21,14 @@ public class UsuarioController {
 		return usuarioService.cadastrarUsuario(cpf, codigoIdentificacao, nome, sobrenome);
 	}
 	
-	@PostMapping("/consultarPorCodigoIdentificacao")
+	@GetMapping("/consultarPorCodigoIdentificacao/{codigoIdentificacao}")
 	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCodigoIdentificacaco(
-			@RequestParam("codigoIdentificacao") String codigoIdentificacao){
+			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		return usuarioService.consultarUsuarioPorCodigoIdentificacaoParaExibicao(codigoIdentificacao);
 	}
 	
-	@PostMapping("/consultarPorCpf")
-	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCpf(@RequestParam("cpf") String cpf){
+	@GetMapping("/consultarPorCpf/{cpf}")
+	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
 		return usuarioService.consultarUsuarioPorCpfParaExibicao(cpf);
 	}
 	
