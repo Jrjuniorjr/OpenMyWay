@@ -71,7 +71,7 @@ public class Acesso {
 
 	public void converterCalendarToStringAcesso() {
 		Calendar cdl = Calendar.getInstance();
-		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
 		String dataHora = df.format(cdl.getTime());
 		String [] arraySplit = new String [2];
 		arraySplit = dataHora.split(" ");
