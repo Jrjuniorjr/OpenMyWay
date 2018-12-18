@@ -3,7 +3,6 @@ package br.unicap.c3.openmyway.openmyway.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +17,12 @@ public class AcessoController {
 	private AcessoService acessoService;
 	
 	@GetMapping("/solicitarAcessoEntrada/{codigoIdentificacao}")
-	public HttpStatus solicitarAcessoEntrada(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+	public ResponseEntity<?> solicitarAcessoEntrada(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		return acessoService.solicitarAcessoEntrada(codigoIdentificacao);
 	}
 	
 	@GetMapping("/solicitarAcessoSaida/{codigoIdentificacao}")
-	public HttpStatus solicitarAcessoSaida(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+	public ResponseEntity<?> solicitarAcessoSaida(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		return acessoService.solicitarAcessoSaida(codigoIdentificacao);
 	}
 	

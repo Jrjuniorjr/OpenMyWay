@@ -23,7 +23,7 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	public HttpStatus solicitarAcessoEntrada(String codigoIdentificacao) {
+	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -31,7 +31,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return HttpStatus.NOT_FOUND;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 		}
 
@@ -47,13 +47,13 @@ public class AcessoService {
 
 			iAcessoDAO.save(acesso);
 
-			return HttpStatus.OK;
-
+			return ResponseEntity.ok().build();
+			
 		}
 
 	}
 
-	public HttpStatus solicitarAcessoSaida(String codigoIdentificacao) {
+	public ResponseEntity<?> solicitarAcessoSaida(String codigoIdentificacao) {
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -61,7 +61,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return HttpStatus.NOT_FOUND;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 		}
 
@@ -77,7 +77,7 @@ public class AcessoService {
 			
 			iAcessoDAO.save(acesso);
 
-			return HttpStatus.OK;
+			return ResponseEntity.ok().build();
 
 		}
 
