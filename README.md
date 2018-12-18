@@ -1,5 +1,6 @@
 # OpenMyWay
 
+
 Como usar:
 
 Observação 2: Todos os metodos são POST, exceto o gerarRelatorioAcessos, que é metodo GET
