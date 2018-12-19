@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
+import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
 import br.unicap.c3.openmyway.openmyway.dto.*;
 
@@ -22,7 +23,7 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	public String solicitarAcesso(String codigoIdentificacao) {
+	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -30,7 +31,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return "O usuario não foi encontrado!";
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 		}
 
@@ -40,16 +41,47 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 
+			acesso.setTipoAcesso(TipoAcesso.Entrada);
+			
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
 
-			return "Sucesso!";
-
+			return ResponseEntity.ok().build();
+			
 		}
 
 	}
 
+	public ResponseEntity<?> solicitarAcessoSaida(String codigoIdentificacao) {
+
+		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+
+		Usuario usuario = (Usuario) entity.getBody();
+
+		if (usuario == null) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+		}
+
+		else {
+
+			Acesso acesso = new Acesso();
+
+			acesso.setUsuario(usuario);
+			
+			acesso.setTipoAcesso(TipoAcesso.Saida);
+			
+			acesso.converterCalendarToStringAcesso();
+			
+			iAcessoDAO.save(acesso);
+
+			return ResponseEntity.ok().build();
+
+		}
+
+	}
 	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso() {
 		List<Acesso> acessos = iAcessoDAO.findAll();
 		List<AcessoDTO> acessosDTO = new ArrayList<>();
@@ -60,9 +92,9 @@ public class AcessoService {
 
 		else {
 			for (Acesso acesso : acessos) {
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-						acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-						acesso.getUsuario().getSobrenome(), acesso.getData(), acesso.getHora());
+				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
+						acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
+						acesso.getData(), acesso.getHora());
 				acessosDTO.add(acessoDTO);
 			}
 
@@ -81,9 +113,9 @@ public class AcessoService {
 		else {
 			for (Acesso acesso : acessos) {
 				if (acesso.getData().equals(data)) {
-					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-							acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-							acesso.getUsuario().getSobrenome(), acesso.getData(), acesso.getHora());
+					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
+							acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
+							acesso.getData(), acesso.getHora());
 					acessosDTO.add(acessoDTO);
 				}
 			}

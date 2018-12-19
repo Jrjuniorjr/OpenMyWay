@@ -16,9 +16,14 @@ public class AcessoController {
 	@Autowired
 	private AcessoService acessoService;
 	
-	@PostMapping("/solicitarAcesso")
-	public String solicitarAcesso(@RequestParam("codigoIdentificacao") String codigoIdentificacao){
-		return acessoService.solicitarAcesso(codigoIdentificacao);
+	@GetMapping("/solicitarAcessoEntrada/{codigoIdentificacao}")
+	public ResponseEntity<?> solicitarAcessoEntrada(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+		return acessoService.solicitarAcessoEntrada(codigoIdentificacao);
+	}
+	
+	@GetMapping("/solicitarAcessoSaida/{codigoIdentificacao}")
+	public ResponseEntity<?> solicitarAcessoSaida(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+		return acessoService.solicitarAcessoSaida(codigoIdentificacao);
 	}
 	
 	@GetMapping("/gerarRelatorioAcessos")
@@ -26,8 +31,8 @@ public class AcessoController {
 		return acessoService.gerarRelatorioAcesso();
 	}
 	
-	@PostMapping("/gerarRelatorioAcessosPorData")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@RequestParam("data") String data){
+	@GetMapping("/gerarRelatorioAcessosPorData/{data}")
+	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
 		return acessoService.gerarRelatorioAcessoPorData(data);
 	}
 	
