@@ -5,33 +5,35 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.persistence.*;
 
-
 @Entity
-@Table(name="Acesso")
+@Table(name = "Acesso")
 public class Acesso {
-	@Id 
-	@Column (name = "id")
+	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-/*	@Enumerated(EnumType.STRING)
-	@Column(name="tipoAcesso", columnDefinition="enum('Entrada', 'Saida')")
-	private TipoAcesso tipoAcesso;
-	*/
-	@Column(name="tipoAcesso")
+	/* Comentado pois no postgresql não existe tipo enum.
+	 * 
+	 * 
+	 * @Enumerated(EnumType.STRING)
+	 * 
+	 * @Column(name="tipoAcesso", columnDefinition="enum('Entrada', 'Saida')")
+	 * private TipoAcesso tipoAcesso;
+	 */
+	@Column(name = "tipoAcesso")
 	private String tipoAcesso;
-	
-	@ManyToOne(
-			fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
-	
-	@Column (name = "data")
+
+	@Column(name = "data")
 	private String data;
-	
-	@Column (name = "hora")
+
+	@Column(name = "hora")
 	private String hora;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -40,9 +42,7 @@ public class Acesso {
 		this.id = id;
 	}
 
-	
-	
-public String getTipoAcesso() {
+	public String getTipoAcesso() {
 		return tipoAcesso;
 	}
 
@@ -50,14 +50,12 @@ public String getTipoAcesso() {
 		this.tipoAcesso = tipoAcesso;
 	}
 
-	/*	public TipoAcesso getTipoAcesso() {
-		return tipoAcesso;
-	}
-
-	public void setTipoAcesso(TipoAcesso tipoAcesso) {
-		this.tipoAcesso = tipoAcesso;
-	}
-*/
+	/*
+	 * public TipoAcesso getTipoAcesso() { return tipoAcesso; }
+	 * 
+	 * public void setTipoAcesso(TipoAcesso tipoAcesso) { this.tipoAcesso =
+	 * tipoAcesso; }
+	 */
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -86,11 +84,10 @@ public String getTipoAcesso() {
 		Calendar cdl = Calendar.getInstance();
 		DateFormat df = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
 		String dataHora = df.format(cdl.getTime());
-		String [] arraySplit = new String [2];
+		String[] arraySplit = new String[2];
 		arraySplit = dataHora.split(" ");
 		this.data = arraySplit[0];
 		this.hora = arraySplit[1];
 	}
-	
-	
+
 }

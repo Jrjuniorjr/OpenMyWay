@@ -7,7 +7,11 @@ public class AcessoDTO {
 	private String codigoIdentificacao;
 	private String nomeUsuario;
 	private String sobrenomeUsuario;
-	//private TipoAcesso tipoAcesso;
+	/* Comentado o enum, pois o postgresql não tem enum.
+	 * 
+	 * 
+	 * private TipoAcesso tipoAcesso;
+	 */
 	private String tipoAcesso;
 	private String data;
 	private String hora;	

@@ -31,7 +31,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado.");
 
 		}
 
@@ -47,7 +47,7 @@ public class AcessoService {
 
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok().body("Bem vindo!");
 			
 		}
 
@@ -61,7 +61,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
 
 		}
 
@@ -77,7 +77,7 @@ public class AcessoService {
 			
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok().body("Até a proxima!");
 
 		}
 
