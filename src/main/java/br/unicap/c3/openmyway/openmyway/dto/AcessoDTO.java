@@ -7,13 +7,14 @@ public class AcessoDTO {
 	private String codigoIdentificacao;
 	private String nomeUsuario;
 	private String sobrenomeUsuario;
-	private TipoAcesso tipoAcesso;
+	//private TipoAcesso tipoAcesso;
+	private String tipoAcesso;
 	private String data;
 	private String hora;	
 	
 	
 	public AcessoDTO(String cpf, String codigoIdentificacao, String nomeUsuario, String sobrenomeUsuario,
-			TipoAcesso tipoAcesso, String data, String hora) {
+			String tipoAcesso, String data, String hora) {
 		super();
 		this.cpf = cpf;
 		this.codigoIdentificacao = codigoIdentificacao;
@@ -70,12 +71,12 @@ public class AcessoDTO {
 	}
 
 
-	public TipoAcesso getTipoAcesso() {
+	public String getTipoAcesso() {
 		return tipoAcesso;
 	}
 
 
-	public void setTipoAcesso(TipoAcesso tipoAcesso) {
+	public void setTipoAcesso(String tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
 

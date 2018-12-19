@@ -41,7 +41,7 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 
-			acesso.setTipoAcesso(TipoAcesso.Entrada);
+			acesso.setTipoAcesso("Entrada");
 			
 			acesso.converterCalendarToStringAcesso();
 
@@ -71,7 +71,7 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 			
-			acesso.setTipoAcesso(TipoAcesso.Saida);
+			acesso.setTipoAcesso("Saida");
 			
 			acesso.converterCalendarToStringAcesso();
 			

@@ -14,9 +14,12 @@ public class Acesso {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Enumerated(EnumType.STRING)
+/*	@Enumerated(EnumType.STRING)
 	@Column(name="tipoAcesso", columnDefinition="enum('Entrada', 'Saida')")
 	private TipoAcesso tipoAcesso;
+	*/
+	@Column(name="tipoAcesso")
+	private String tipoAcesso;
 	
 	@ManyToOne(
 			fetch = FetchType.EAGER)
@@ -37,14 +40,24 @@ public class Acesso {
 		this.id = id;
 	}
 
-	public TipoAcesso getTipoAcesso() {
+	
+	
+public String getTipoAcesso() {
+		return tipoAcesso;
+	}
+
+	public void setTipoAcesso(String tipoAcesso) {
+		this.tipoAcesso = tipoAcesso;
+	}
+
+	/*	public TipoAcesso getTipoAcesso() {
 		return tipoAcesso;
 	}
 
 	public void setTipoAcesso(TipoAcesso tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
-
+*/
 	public Usuario getUsuario() {
 		return usuario;
 	}
