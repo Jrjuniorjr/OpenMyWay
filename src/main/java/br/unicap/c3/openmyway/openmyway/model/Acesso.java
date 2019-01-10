@@ -13,16 +13,19 @@ public class Acesso {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	/* Comentado pois no postgresql não existe tipo enum.
-	 * 
-	 * 
-	 * @Enumerated(EnumType.STRING)
-	 * 
-	 * @Column(name="tipoAcesso", columnDefinition="enum('Entrada', 'Saida')")
-	 * private TipoAcesso tipoAcesso;
+	/*
+	 * Comentado pois no postgresql não existe tipo enum.
 	 */
-	@Column(name = "tipoAcesso")
-	private String tipoAcesso;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipoAcesso", columnDefinition = "enum('Entrada', 'Saida')")
+	private TipoAcesso tipoAcesso;
+
+	/*
+	 * Apenas usar em postgresql
+	 * 
+	 * @Column(name = "tipoAcesso") private String tipoAcesso;
+	 */
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idUsuario")
@@ -42,20 +45,21 @@ public class Acesso {
 		this.id = id;
 	}
 
-	public String getTipoAcesso() {
+	/*
+	 * public String getTipoAcesso() { return tipoAcesso; }
+	 * 
+	 * public void setTipoAcesso(String tipoAcesso) { this.tipoAcesso = tipoAcesso;
+	 * }
+	 */
+
+	public TipoAcesso getTipoAcesso() {
 		return tipoAcesso;
 	}
 
-	public void setTipoAcesso(String tipoAcesso) {
+	public void setTipoAcesso(TipoAcesso tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
 
-	/*
-	 * public TipoAcesso getTipoAcesso() { return tipoAcesso; }
-	 * 
-	 * public void setTipoAcesso(TipoAcesso tipoAcesso) { this.tipoAcesso =
-	 * tipoAcesso; }
-	 */
 	public Usuario getUsuario() {
 		return usuario;
 	}

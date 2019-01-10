@@ -23,7 +23,43 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
+	private boolean validarCodigoIdentificacao(String codigoIdentificacao) {
+
+		if (codigoIdentificacao == null) {
+
+			return false;
+		}
+
+		else {
+
+			return true;
+
+		}
+
+	}
+
+	private boolean validarData(String data) {
+
+		if (data == null) {
+
+			return false;
+		}
+		
+		else {
+			
+			return true;
+			
+		}
+		
+	}
+
 	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
+
+		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+
+		}
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -41,19 +77,25 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 
-			acesso.setTipoAcesso("Entrada");
-			
+			acesso.setTipoAcesso(TipoAcesso.Entrada);
+
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
 
 			return ResponseEntity.ok().body("Bem vindo!");
-			
+
 		}
 
 	}
 
 	public ResponseEntity<?> solicitarAcessoSaida(String codigoIdentificacao) {
+
+		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+
+		}
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
@@ -70,11 +112,11 @@ public class AcessoService {
 			Acesso acesso = new Acesso();
 
 			acesso.setUsuario(usuario);
-			
-			acesso.setTipoAcesso("Saida");
-			
+
+			acesso.setTipoAcesso(TipoAcesso.Saida);
+
 			acesso.converterCalendarToStringAcesso();
-			
+
 			iAcessoDAO.save(acesso);
 
 			return ResponseEntity.ok().body("Até a proxima!");
@@ -82,47 +124,75 @@ public class AcessoService {
 		}
 
 	}
+
 	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso() {
+		
 		List<Acesso> acessos = iAcessoDAO.findAll();
+
 		List<AcessoDTO> acessosDTO = new ArrayList<>();
 
 		if (acessos.isEmpty()) {
+
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+
 		}
 
 		else {
+
 			for (Acesso acesso : acessos) {
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
-						acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
-						acesso.getData(), acesso.getHora());
+
+				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
+						acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
+						acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(), acesso.getHora());
+
 				acessosDTO.add(acessoDTO);
+
 			}
 
 			return ResponseEntity.ok(acessosDTO);
+
 		}
 	}
 
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(String data) {
+	public ResponseEntity<?> gerarRelatorioAcessoPorData(String data) {
+
+		if(!validarData(data)) {
+			
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida");
+			
+		}
+		
 		List<Acesso> acessos = iAcessoDAO.findAll();
+
 		List<AcessoDTO> acessosDTO = new ArrayList<>();
 
 		if (acessos.isEmpty()) {
+
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+
 		}
 
 		else {
+
 			for (Acesso acesso : acessos) {
+
 				if (acesso.getData().equals(data)) {
-					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
-							acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
-							acesso.getData(), acesso.getHora());
+
+					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
+							acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
+							acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(),
+							acesso.getHora());
+
 					acessosDTO.add(acessoDTO);
+
 				}
+
 			}
 
 			return ResponseEntity.ok(acessosDTO);
+
 		}
+
 	}
-	
 
 }
