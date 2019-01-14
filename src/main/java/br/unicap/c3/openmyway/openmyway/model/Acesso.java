@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "Acesso")
 public class Acesso {
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", nullable=false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
@@ -18,7 +18,7 @@ public class Acesso {
 	 */
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tipoAcesso", columnDefinition = "enum('Entrada', 'Saida')")
+	@Column(name = "tipoAcesso", nullable=false, columnDefinition = "enum('Entrada', 'Saida')")
 	private TipoAcesso tipoAcesso;
 
 	/*
@@ -28,13 +28,13 @@ public class Acesso {
 	 */
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idUsuario")
+	@JoinColumn(name = "idUsuario", nullable=false)
 	private Usuario usuario;
 
-	@Column(name = "data")
+	@Column(name = "data", nullable=false)
 	private String data;
 
-	@Column(name = "hora")
+	@Column(name = "hora", nullable=false)
 	private String hora;
 
 	public Integer getId() {
