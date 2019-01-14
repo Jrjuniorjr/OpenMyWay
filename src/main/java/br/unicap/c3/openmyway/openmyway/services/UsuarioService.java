@@ -84,25 +84,25 @@ public class UsuarioService {
 
 		if (!validarCpf(usuario.getCpf())) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
 		}
 
 		if (!validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificação inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
 		if (!validarNome(usuario.getNome())) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
 
 		}
 
 		if (!validarSobrenome(usuario.getSobrenome())) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
 		}
 		
@@ -113,17 +113,17 @@ public class UsuarioService {
 		if (usuarioPorCodigo != null) {
 
 			return ResponseEntity.status(HttpStatus.CONFLICT)
-					.body("Usuario com o codigo de identificação passado já cadastrado!");
+					.body("Usuario com o codigo de identificacao passado ja cadastrado.");
 
 		} else if (usuarioPorCpf != null) {
 
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario com o cpf passado já cadastrado");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario com o cpf passado ja cadastrado.");
 
 		} else {
 
 			iUsuarioDAO.save(usuario);
 
-			return ResponseEntity.ok("O usuario foi cadastrado com sucesso!");
+			return ResponseEntity.ok("O usuario foi cadastrado com sucesso.");
 
 		}
 
@@ -133,7 +133,7 @@ public class UsuarioService {
 
 		if(!validarCodigoIdentificacao(codigoIdentificacao)) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de Identificação inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 			
 		}
@@ -144,7 +144,7 @@ public class UsuarioService {
 		
 		if (usuario == null) {
 		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 
@@ -162,7 +162,7 @@ public class UsuarioService {
 		
 		if(!validarCpf(cpf)) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 			
 		}
 		
@@ -172,7 +172,7 @@ public class UsuarioService {
 		
 		if (usuario == null) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 		
@@ -224,7 +224,7 @@ public class UsuarioService {
 
 		if(!validarCodigoIdentificacao(codigoIdentificacao)) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de Identificação inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 		
@@ -232,7 +232,7 @@ public class UsuarioService {
 
 		if (usuario == null) {
 		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		} else {
 
@@ -248,7 +248,7 @@ public class UsuarioService {
 
 		if(!validarCpf(cpf)) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 			
 		}	
 		
@@ -256,13 +256,13 @@ public class UsuarioService {
 
 		if (usuario == null) {
 		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		} else {
 			
 			iUsuarioDAO.delete(usuario);
 		
-			return ResponseEntity.ok("O usuario foi deletado com sucesso!");
+			return ResponseEntity.ok("O usuario foi deletado com sucesso.");
 	
 		}
 

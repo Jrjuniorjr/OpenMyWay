@@ -32,7 +32,7 @@ public class AcessoController {
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorData/{data}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
+	public ResponseEntity<?> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
 		return acessoService.gerarRelatorioAcessoPorData(data);
 	}
 	

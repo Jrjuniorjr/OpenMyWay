@@ -57,7 +57,7 @@ public class AcessoService {
 
 		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
@@ -67,7 +67,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 
 		}
 
@@ -93,8 +93,8 @@ public class AcessoService {
 
 		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
+			
 		}
 
 		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
@@ -103,7 +103,7 @@ public class AcessoService {
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário nao encontrado.");
 
 		}
 
@@ -119,7 +119,7 @@ public class AcessoService {
 
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok().body("Até a proxima!");
+			return ResponseEntity.ok().body("Ate a proxima!");
 
 		}
 
@@ -158,7 +158,7 @@ public class AcessoService {
 
 		if(!validarData(data)) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
 			
 		}
 		

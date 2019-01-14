@@ -26,7 +26,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/consultarPorCodigoIdentificacao/{codigoIdentificacao}")
-	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCodigoIdentificacaco(
+	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacaco(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		
 		return usuarioService.consultarUsuarioPorCodigoIdentificacaoParaExibicao(codigoIdentificacao);
@@ -34,7 +34,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/consultarPorCpf/{cpf}")
-	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
+	public ResponseEntity<?> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
 	
 		return usuarioService.consultarUsuarioPorCpfParaExibicao(cpf);
 	
@@ -56,7 +56,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorCodigoIdentificacao/{codigoIdentificacao}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioPorCodigoIdentificacao(
+	public ResponseEntity<?> gerarRelatorioPorCodigoIdentificacao(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 	
 		return usuarioService.gerarRelatorioAcessoPorCodigoIdentificacao(codigoIdentificacao);
@@ -64,7 +64,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorCpf/{cpf}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioPorCpf(@PathVariable("cpf") String cpf){
+	public ResponseEntity<?> gerarRelatorioPorCpf(@PathVariable("cpf") String cpf){
 	
 		return usuarioService.gerarRelatorioAcessoPorCpf(cpf);
 	
