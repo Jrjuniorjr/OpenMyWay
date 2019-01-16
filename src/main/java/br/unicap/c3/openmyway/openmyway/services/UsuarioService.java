@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.unicap.c3.openmyway.openmyway.dto.AcessoDTO;
-import br.unicap.c3.openmyway.openmyway.dto.UsuarioDTO;
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
@@ -129,7 +127,39 @@ public class UsuarioService {
 
 	}
 
-	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacaoParaExibicao(String codigoIdentificacao) {
+	public ResponseEntity<String> alterarUsuario(Usuario usuario){
+	
+		if(!validarCpf(usuario.getCpf())) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
+
+		}
+
+		if (!validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
+
+		}
+
+		if (!validarNome(usuario.getNome())) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
+
+		}
+
+		if (!validarSobrenome(usuario.getSobrenome())) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
+
+		}
+
+		iUsuarioDAO.save(usuario);
+
+		return ResponseEntity.ok("O usuario foi alterado com sucesso.");
+		
+	}
+	
+	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
 
 		if(!validarCodigoIdentificacao(codigoIdentificacao)) {
 
@@ -140,25 +170,17 @@ public class UsuarioService {
 		
 		Usuario usuario = iUsuarioDAO.findByCodigoIdentificacao(codigoIdentificacao);
 
-		UsuarioDTO usuarioDTO = null;
-		
 		if (usuario == null) {
 		
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 
-		else {
-			
-			usuarioDTO = new UsuarioDTO(usuario.getCpf(), usuario.getCodigoIdentificacao(), usuario.getNome(),
-					usuario.getSobrenome());
-			
-			return ResponseEntity.ok(usuarioDTO);
-		}
+		return ResponseEntity.ok(usuario);
 
 	}
 
-	public ResponseEntity<?> consultarUsuarioPorCpfParaExibicao(String cpf) {
+	public ResponseEntity<?> consultarUsuarioPorCpf(String cpf) {
 		
 		if(!validarCpf(cpf)) {
 			
@@ -167,58 +189,17 @@ public class UsuarioService {
 		}
 		
 		Usuario usuario = iUsuarioDAO.findByCpf(cpf);
-		
-		UsuarioDTO usuarioDTO = null;
-		
+				
 		if (usuario == null) {
 			
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 		
-		else {
-			usuarioDTO = new UsuarioDTO(usuario.getCpf(), usuario.getCodigoIdentificacao(), usuario.getNome(),
-					usuario.getSobrenome());
+		return ResponseEntity.ok(usuario);
 		
-			return ResponseEntity.ok(usuarioDTO);
-		
-		}
-
 	}
 
-	public ResponseEntity<Usuario> consultarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
-
-		Usuario usuario = iUsuarioDAO.findByCodigoIdentificacao(codigoIdentificacao);
-
-		if (usuario == null) {
-			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
-		
-		}
-
-		else {
-		
-			return ResponseEntity.ok(usuario);
-		
-		}
-
-	}
-
-	public ResponseEntity<Usuario> consultarUsuarioPorCpf(String cpf) {
-		
-		Usuario usuario = iUsuarioDAO.findByCpf(cpf);
-
-		if (usuario == null) {
-		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
-		
-		}
-
-		else {
-			return ResponseEntity.ok(usuario);
-		}
-
-	}
 
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
 
@@ -272,39 +253,27 @@ public class UsuarioService {
 		
 		if(!validarCodigoIdentificacao(codigoIdentificacao)) {
 
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de Identificação inválido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 		
 		Usuario usuario = iUsuarioDAO.findByCodigoIdentificacao(codigoIdentificacao);
 		
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
-
 		if (usuario == null) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 
 		if (usuario.getAcessos().isEmpty()) {
 		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao possui acessos.");
 		
 		}
 
 		else {
 			
-			for (Acesso acesso : usuario.getAcessos()) {
-				
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-						acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-						acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(), acesso.getHora());
-			
-				acessosDTO.add(acessoDTO);
-		
-			}
-
-			return ResponseEntity.ok(acessosDTO);
+			return ResponseEntity.ok(usuario.getAcessos());
 	
 		}
 	
@@ -314,39 +283,27 @@ public class UsuarioService {
 
 		if(!validarCpf(cpf)) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 			
 		}	
 		
 		Usuario usuario = iUsuarioDAO.findByCpf(cpf);
 		
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
-
 		if (usuario == null) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 		
 		}
 
 		if (usuario.getAcessos().isEmpty()) {
 		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não possui acessos!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao possui acessos.");
 		
 		}
 
 		else {
 			
-			for (Acesso acesso : usuario.getAcessos()) {
-		
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-						acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-						acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(), acesso.getHora());
-			
-				acessosDTO.add(acessoDTO);
-			
-			}
-
-			return ResponseEntity.ok(acessosDTO);
+			return ResponseEntity.ok(usuario.getAcessos());
 	
 		}
 	

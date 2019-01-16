@@ -12,7 +12,6 @@ import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
 import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
-import br.unicap.c3.openmyway.openmyway.dto.*;
 
 @Service
 public class AcessoService {
@@ -44,13 +43,28 @@ public class AcessoService {
 
 			return false;
 		}
-		
+
 		else {
-			
+
 			return true;
-			
+
 		}
-		
+
+	}
+	
+	private boolean validarHora(String hora) {
+
+		if (hora == null) {
+
+			return false;
+		}
+
+		else {
+
+			return true;
+
+		}
+
 	}
 
 	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
@@ -61,7 +75,11 @@ public class AcessoService {
 
 		}
 
-		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+
+		if (entity.getStatusCode() != HttpStatus.OK) {
+			return entity;
+		}
 
 		Usuario usuario = (Usuario) entity.getBody();
 
@@ -94,16 +112,20 @@ public class AcessoService {
 		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
-			
+
 		}
 
-		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+
+		if (entity.getStatusCode() != HttpStatus.OK) {
+			return entity;
+		}
 
 		Usuario usuario = (Usuario) entity.getBody();
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário nao encontrado.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 
 		}
 
@@ -125,73 +147,67 @@ public class AcessoService {
 
 	}
 
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso() {
-		
-		List<Acesso> acessos = iAcessoDAO.findAll();
+	public ResponseEntity<List<Acesso>> gerarRelatorioAcesso() {
 
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
+		List<Acesso> acessos = iAcessoDAO.findAll();
 
 		if (acessos.isEmpty()) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
 
 		}
 
 		else {
 
-			for (Acesso acesso : acessos) {
-
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-						acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-						acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(), acesso.getHora());
-
-				acessosDTO.add(acessoDTO);
-
-			}
-
-			return ResponseEntity.ok(acessosDTO);
+			return ResponseEntity.ok(acessos);
 
 		}
 	}
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorData(String data) {
 
-		if(!validarData(data)) {
-			
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
-			
-		}
-		
-		List<Acesso> acessos = iAcessoDAO.findAll();
+		if (!validarData(data)) {
 
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
+
+		}
+
+		List<Acesso> acessos = iAcessoDAO.findByData(data);
 
 		if (acessos.isEmpty()) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
 
 		}
 
-		else {
+		return ResponseEntity.ok(acessos);
 
-			for (Acesso acesso : acessos) {
+	}
+	
+	public ResponseEntity<?> gerarRelatorioAcessosPorDataEHora(String data, String hora){
+		
+		
+		if (!validarData(data)) {
 
-				if (acesso.getData().equals(data)) {
-
-					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(),
-							acesso.getUsuario().getCodigoIdentificacao(), acesso.getUsuario().getNome(),
-							acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(), acesso.getData(),
-							acesso.getHora());
-
-					acessosDTO.add(acessoDTO);
-
-				}
-
-			}
-
-			return ResponseEntity.ok(acessosDTO);
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
 
 		}
+		
+		if (!validarHora(hora)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Hora invalida.");
+
+		}
+
+		List<Acesso> acessos = iAcessoDAO.findByDataInAndHoraIn(data, hora);
+
+		if (acessos.isEmpty()) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
+
+		}
+
+		return ResponseEntity.ok(acessos);
 
 	}
 

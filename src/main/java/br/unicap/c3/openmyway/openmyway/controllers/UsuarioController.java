@@ -1,13 +1,10 @@
 package br.unicap.c3.openmyway.openmyway.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.unicap.c3.openmyway.openmyway.dto.*;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
 import br.unicap.c3.openmyway.openmyway.services.UsuarioService;
 
@@ -25,22 +22,27 @@ public class UsuarioController {
 	
 	}
 	
+	@PutMapping("/alterar")
+	public ResponseEntity<?> alterarUsuario(@RequestBody Usuario usuario){
+		return usuarioService.alterarUsuario(usuario);
+	}
+	
 	@GetMapping("/consultarPorCodigoIdentificacao/{codigoIdentificacao}")
 	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacaco(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		
-		return usuarioService.consultarUsuarioPorCodigoIdentificacaoParaExibicao(codigoIdentificacao);
+		return usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 	
 	}
 	
 	@GetMapping("/consultarPorCpf/{cpf}")
 	public ResponseEntity<?> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
 	
-		return usuarioService.consultarUsuarioPorCpfParaExibicao(cpf);
+		return usuarioService.consultarUsuarioPorCpf(cpf);
 	
 	}
 	
-	@PostMapping("/deletarPorCodigoIdentificacao")
+	@DeleteMapping("/deletarPorCodigoIdentificacao")
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(
 			@RequestParam("codigoIdentificacao") String codigoIdentificacao){
 		
@@ -48,7 +50,7 @@ public class UsuarioController {
 	
 	}
 	
-	@PostMapping("/deletarPorCpf")
+	@DeleteMapping("/deletarPorCpf")
 	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestParam("cpf") String cpf){
 	
 		return usuarioService.deletarUsuarioPorCpf(cpf);
