@@ -1,6 +1,5 @@
 package br.unicap.c3.openmyway.openmyway.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
-import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
-import br.unicap.c3.openmyway.openmyway.dto.*;
+import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 
 @Service
 public class AcessoService {
@@ -23,15 +21,71 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
+	private boolean validarCodigoIdentificacao(String codigoIdentificacao) {
+
+		if (codigoIdentificacao == null) {
+
+			return false;
+		}
+
+		else {
+
+			return true;
+
+		}
+
+	}
+
+	private boolean validarData(String data) {
+
+		if (data == null) {
+
+			return false;
+		}
+
+		else {
+
+			return true;
+
+		}
+
+	}
+	
+	private boolean validarHora(String hora) {
+
+		if (hora == null) {
+
+			return false;
+		}
+
+		else {
+
+			return true;
+
+		}
+
+	}
+
 	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
 
-		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
+
+		}
+
+		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+
+		if (entity.getStatusCode() != HttpStatus.OK) {
+			
+			return entity;
+		}
 
 		Usuario usuario = (Usuario) entity.getBody();
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 
 		}
 
@@ -39,29 +93,39 @@ public class AcessoService {
 
 			Acesso acesso = new Acesso();
 
-			acesso.setUsuario(usuario);
-
-			acesso.setTipoAcesso("Entrada");
+			acesso.setUsuario(usuario);;
 			
+			acesso.setTipoAcesso(TipoAcesso.Entrada);
+
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
 
 			return ResponseEntity.ok().body("Bem vindo!");
-			
+
 		}
 
 	}
 
 	public ResponseEntity<?> solicitarAcessoSaida(String codigoIdentificacao) {
 
-		ResponseEntity<Usuario> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
+
+		}
+
+		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+
+		if (entity.getStatusCode() != HttpStatus.OK) {
+			return entity;
+		}
 
 		Usuario usuario = (Usuario) entity.getBody();
 
 		if (usuario == null) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 
 		}
 
@@ -70,59 +134,81 @@ public class AcessoService {
 			Acesso acesso = new Acesso();
 
 			acesso.setUsuario(usuario);
-			
-			acesso.setTipoAcesso("Saida");
-			
+
+			acesso.setTipoAcesso(TipoAcesso.Saida);
+
 			acesso.converterCalendarToStringAcesso();
-			
+
 			iAcessoDAO.save(acesso);
 
-			return ResponseEntity.ok().body("Até a proxima!");
+			return ResponseEntity.ok().body("Ate a proxima!");
 
 		}
 
 	}
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso() {
+
+	public ResponseEntity<List<Acesso>> gerarRelatorioAcesso() {
+
 		List<Acesso> acessos = iAcessoDAO.findAll();
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
 
 		if (acessos.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
+
 		}
 
 		else {
-			for (Acesso acesso : acessos) {
-				AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
-						acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
-						acesso.getData(), acesso.getHora());
-				acessosDTO.add(acessoDTO);
-			}
 
-			return ResponseEntity.ok(acessosDTO);
+			return ResponseEntity.ok(acessos);
+
 		}
 	}
 
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(String data) {
-		List<Acesso> acessos = iAcessoDAO.findAll();
-		List<AcessoDTO> acessosDTO = new ArrayList<>();
+	public ResponseEntity<?> gerarRelatorioAcessoPorData(String data) {
+
+		if (!validarData(data)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
+
+		}
+
+		List<Acesso> acessos = iAcessoDAO.findByData(data);
 
 		if (acessos.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessosDTO);
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
+
 		}
 
-		else {
-			for (Acesso acesso : acessos) {
-				if (acesso.getData().equals(data)) {
-					AcessoDTO acessoDTO = new AcessoDTO(acesso.getUsuario().getCpf(), acesso.getUsuario().getCodigoIdentificacao(),
-							acesso.getUsuario().getNome(), acesso.getUsuario().getSobrenome(), acesso.getTipoAcesso(),
-							acesso.getData(), acesso.getHora());
-					acessosDTO.add(acessoDTO);
-				}
-			}
+		return ResponseEntity.ok(acessos);
 
-			return ResponseEntity.ok(acessosDTO);
-		}
 	}
 	
+	public ResponseEntity<?> gerarRelatorioAcessosPorDataEHora(String data, String hora){
+		
+		
+		if (!validarData(data)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
+
+		}
+		
+		if (!validarHora(hora)) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Hora invalida.");
+
+		}
+
+		List<Acesso> acessos = iAcessoDAO.findByDataInAndHoraIn(data, hora);
+
+		if (acessos.isEmpty()) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
+
+		}
+
+		return ResponseEntity.ok(acessos);
+
+	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.unicap.c3.openmyway.openmyway.services.AcessoService;
-import br.unicap.c3.openmyway.openmyway.dto.*;
+import br.unicap.c3.openmyway.openmyway.model.Acesso;
 
 @RestController
 @RequestMapping("/acesso")
@@ -27,14 +27,21 @@ public class AcessoController {
 	}
 	
 	@GetMapping("/gerarRelatorioAcessos")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcesso(){
+	public ResponseEntity<List<Acesso>> gerarRelatorioAcesso(){
 		return acessoService.gerarRelatorioAcesso();
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorData/{data}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
+	public ResponseEntity<?> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
 		return acessoService.gerarRelatorioAcessoPorData(data);
 	}
+	
+	@GetMapping("/gerarRelatorioAcessosPorDataEHora/{data}/{hora}")
+	public ResponseEntity<?> gerarRelatorioAcessoPorDataEHora(@PathVariable("data") String data,
+			@PathVariable("hora") String hora){
+		return acessoService.gerarRelatorioAcessosPorDataEHora(data, hora);
+	}
+	
 	
 	
 	

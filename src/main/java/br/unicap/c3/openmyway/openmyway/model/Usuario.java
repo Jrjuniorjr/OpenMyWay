@@ -2,35 +2,50 @@ package br.unicap.c3.openmyway.openmyway.model;
 
 import java.util.List;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="Usuario")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
 	@Id 
-	@Column (name = "id")
+	@Column (name = "id", nullable=false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column (name = "cpf", unique=true)
+	@Column (name = "cpf", nullable=false, unique=true)
 	private String cpf;
 	
-	@Column (name = "codigoIdentificacao", unique=true)
+	@Column (name = "codigoIdentificacao", nullable=false, unique=true)
 	private String codigoIdentificacao;
 	
 
-	@Column (name = "nome")
+	@Column (name = "nome", nullable=false)
 	private String nome;
 	
-	@Column (name = "sobrenome")
+	@Column (name = "sobrenome", nullable=false)
 	private String sobrenome;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipoPessoa", nullable=false, columnDefinition = "enum('Convidado', 'Aluno', 'Funcionario', 'Professor')")
+	private TipoPessoa tipoPessoa;
 	
 	@OneToMany (mappedBy = "usuario",
 			fetch=FetchType.LAZY)
 	private List<Acesso> acessos;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -46,21 +61,13 @@ public class Usuario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public String getCodigoIdentificacao() {
 		return codigoIdentificacao;
 	}
 
 	public void setCodigoIdentificacao(String codigoIdentificacao) {
 		this.codigoIdentificacao = codigoIdentificacao;
-	}
-
-	public List<Acesso> getAcessos() {
-		return acessos;
-	}
-
-	public void setAcessos(List<Acesso> acessos) {
-		this.acessos = acessos;
 	}
 
 	public String getNome() {
@@ -78,6 +85,24 @@ public class Usuario {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public List<Acesso> getAcessos() {
+		return acessos;
+	}
+
+	public void setAcessos(List<Acesso> acessos) {
+		this.acessos = acessos;
+	}
+	
+	
 	
 	
 }

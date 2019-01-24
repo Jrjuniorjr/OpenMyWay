@@ -1,13 +1,20 @@
 package br.unicap.c3.openmyway.openmyway.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.unicap.c3.openmyway.openmyway.dto.*;
+import br.unicap.c3.openmyway.openmyway.model.IntegranteUniversidade;
+import br.unicap.c3.openmyway.openmyway.model.Usuario;
 import br.unicap.c3.openmyway.openmyway.services.UsuarioService;
 
 @RestController
@@ -17,43 +24,75 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PostMapping("/cadastrar")
-	public ResponseEntity<String> cadastrarUsuario(
-			@RequestParam("cpf") String cpf, @RequestParam("codigoIdentificacao") String codigoIdentificacao,
-			@RequestParam("nome") String nome, @RequestParam("sobrenome") String sobrenome){
-		return usuarioService.cadastrarUsuario(cpf, codigoIdentificacao, nome, sobrenome);
+	@PostMapping("/cadastrarUsuario")
+	public ResponseEntity<String> cadastrarUsuario(@RequestBody Usuario usuario){
+	
+		return usuarioService.cadastrarUsuario(usuario);
+	
+	}
+	
+	@PostMapping("/cadastrarIntegranteUniversidade")
+	public ResponseEntity<String> cadastrarIntegranteUniversidade(
+			@RequestBody IntegranteUniversidade integranteUniversidade){
+	
+		return usuarioService.cadastrarIntegranteUniversidade(integranteUniversidade);
+	
+	}
+	
+	@PutMapping("/alterarUsuario")
+	public ResponseEntity<?> alterarUsuario(@RequestBody Usuario usuario){
+		return usuarioService.alterarUsuario(usuario);
+	}
+	
+	
+	@PutMapping("/alterarIntegranteUniversidade")
+	public ResponseEntity<?> alterarIntegranteUniversidade(@RequestBody IntegranteUniversidade integranteUniversidade){
+		return usuarioService.alterarUsuario(integranteUniversidade);
 	}
 	
 	@GetMapping("/consultarPorCodigoIdentificacao/{codigoIdentificacao}")
-	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCodigoIdentificacaco(
+	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacaco(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
-		return usuarioService.consultarUsuarioPorCodigoIdentificacaoParaExibicao(codigoIdentificacao);
+		
+		return usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+	
 	}
 	
 	@GetMapping("/consultarPorCpf/{cpf}")
-	public ResponseEntity<UsuarioDTO> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
-		return usuarioService.consultarUsuarioPorCpfParaExibicao(cpf);
+	public ResponseEntity<?> consultarUsuarioPorCpf(@PathVariable("cpf") String cpf){
+	
+		return usuarioService.consultarUsuarioPorCpf(cpf);
+	
 	}
 	
-	@PostMapping("/deletarPorCodigoIdentificacao")
+	@DeleteMapping("/deletarPorCodigoIdentificacao")
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(
-			@RequestParam("codigoIdentificacao") String codigoIdentificacao){
+			@RequestHeader("codigoIdentificacao") String codigoIdentificacao){
+		
 		return usuarioService.deletarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
+	
 	}
 	
-	@PostMapping("/deletarPorCpf")
-	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestParam("cpf") String cpf){
+	@DeleteMapping("/deletarPorCpf")
+	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestHeader("cpf") String cpf){
+	
 		return usuarioService.deletarUsuarioPorCpf(cpf);
+	
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorCodigoIdentificacao/{codigoIdentificacao}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioPorCodigoIdentificacao(
+	public ResponseEntity<?> gerarRelatorioPorCodigoIdentificacao(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+	
 		return usuarioService.gerarRelatorioAcessoPorCodigoIdentificacao(codigoIdentificacao);
+	
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorCpf/{cpf}")
-	public ResponseEntity<List<AcessoDTO>> gerarRelatorioPorCpf(@PathVariable("cpf") String cpf){
+	public ResponseEntity<?> gerarRelatorioPorCpf(@PathVariable("cpf") String cpf){
+	
 		return usuarioService.gerarRelatorioAcessoPorCpf(cpf);
+	
 	}
+
 }
