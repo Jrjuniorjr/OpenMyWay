@@ -1,6 +1,5 @@
 package br.unicap.c3.openmyway.openmyway.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
-import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
+import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 
 @Service
 public class AcessoService {
@@ -78,6 +77,7 @@ public class AcessoService {
 		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
 		if (entity.getStatusCode() != HttpStatus.OK) {
+			
 			return entity;
 		}
 
@@ -93,8 +93,8 @@ public class AcessoService {
 
 			Acesso acesso = new Acesso();
 
-			acesso.setUsuario(usuario);
-
+			acesso.setUsuario(usuario);;
+			
 			acesso.setTipoAcesso(TipoAcesso.Entrada);
 
 			acesso.converterCalendarToStringAcesso();

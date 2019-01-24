@@ -1,22 +1,108 @@
 package br.unicap.c3.openmyway.openmyway.model;
 
-import javax.persistence.*;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="Usuario")
-@PrimaryKeyJoinColumn(name="idPessoa")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
+
+	@Id 
+	@Column (name = "id", nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
-	@Column(name = "matricula", nullable=false)
-	private String matricula;
+	@Column (name = "cpf", nullable=false, unique=true)
+	private String cpf;
 	
-	public String getMatricula() {
-		return matricula;
+	@Column (name = "codigoIdentificacao", nullable=false, unique=true)
+	private String codigoIdentificacao;
+	
+
+	@Column (name = "nome", nullable=false)
+	private String nome;
+	
+	@Column (name = "sobrenome", nullable=false)
+	private String sobrenome;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipoPessoa", nullable=false, columnDefinition = "enum('Convidado', 'Aluno', 'Funcionario', 'Professor')")
+	private TipoPessoa tipoPessoa;
+	
+	@OneToMany (mappedBy = "usuario",
+			fetch=FetchType.LAZY)
+	private List<Acesso> acessos;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCodigoIdentificacao() {
+		return codigoIdentificacao;
+	}
+
+	public void setCodigoIdentificacao(String codigoIdentificacao) {
+		this.codigoIdentificacao = codigoIdentificacao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public List<Acesso> getAcessos() {
+		return acessos;
+	}
+
+	public void setAcessos(List<Acesso> acessos) {
+		this.acessos = acessos;
+	}
+	
+	
+	
 	
 }
