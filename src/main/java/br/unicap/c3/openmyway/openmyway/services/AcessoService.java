@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IAcessoDAO;
 import br.unicap.c3.openmyway.openmyway.model.Acesso;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
+import br.unicap.c3.openmyway.openmyway.validacoes.Validacoes;
 import br.unicap.c3.openmyway.openmyway.model.TipoAcesso;
 
 @Service
@@ -21,54 +22,12 @@ public class AcessoService {
 	@Autowired
 	private IAcessoDAO iAcessoDAO;
 
-	private boolean validarCodigoIdentificacao(String codigoIdentificacao) {
-
-		if (codigoIdentificacao == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
-	private boolean validarData(String data) {
-
-		if (data == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
+	@Autowired
+	private Validacoes validacoes;
 	
-	private boolean validarHora(String hora) {
-
-		if (hora == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
 	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
 
-		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
@@ -111,7 +70,7 @@ public class AcessoService {
 
 	public ResponseEntity<?> solicitarAcessoSaida(String codigoIdentificacao) {
 
-		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
@@ -170,7 +129,7 @@ public class AcessoService {
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorData(String data) {
 
-		if (!validarData(data)) {
+		if (!validacoes.validarData(data)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
 
@@ -191,13 +150,13 @@ public class AcessoService {
 	public ResponseEntity<?> gerarRelatorioAcessosPorDataEHora(String data, String hora){
 		
 		
-		if (!validarData(data)) {
+		if (!validacoes.validarData(data)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
 
 		}
 		
-		if (!validarHora(hora)) {
+		if (!validacoes.validarHora(hora)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Hora invalida.");
 

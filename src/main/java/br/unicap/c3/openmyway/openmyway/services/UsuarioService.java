@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
 import br.unicap.c3.openmyway.openmyway.model.IntegranteUniversidade;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
+import br.unicap.c3.openmyway.openmyway.validacoes.Validacoes;
 
 @Service
 public class UsuarioService {
@@ -15,102 +16,30 @@ public class UsuarioService {
 	@Autowired
 	private IUsuarioDAO iUsuarioDAO;
 
-	private boolean validarCpf(String cpf) {
-
-		if (cpf == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
-	private boolean validarCodigoIdentificacao(String codigoIdentificacao) {
-
-		if (codigoIdentificacao == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
-	private boolean validarNome(String nome) {
-
-		if (nome == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
-	private boolean validarSobrenome(String sobrenome) {
-
-		if (sobrenome == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
-	private boolean validarMatricula(String matricula) {
-
-		if (matricula == null) {
-
-			return false;
-		}
-
-		else {
-
-			return true;
-
-		}
-
-	}
-
+	@Autowired
+	private Validacoes validacoes;
+	
 	public ResponseEntity<String> validarCadastro(Usuario usuario) {
-
-		if (!validarCpf(usuario.getCpf())) {
+	
+		if (!validacoes.validarCpf(usuario.getCpf())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
 		}
 
-		if (!validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
+		if (!validacoes.validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
-		if (!validarNome(usuario.getNome())) {
+		if (!validacoes.validarNome(usuario.getNome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
 
 		}
 
-		if (!validarSobrenome(usuario.getSobrenome())) {
+		if (!validacoes.validarSobrenome(usuario.getSobrenome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
@@ -168,7 +97,7 @@ public class UsuarioService {
 
 		}
 
-		else if (!validarMatricula(integranteUniversidade.getMatricula())) {
+		else if (!validacoes.validarMatricula(integranteUniversidade.getMatricula())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Matricula invalida.");
 
@@ -186,25 +115,25 @@ public class UsuarioService {
 
 	public ResponseEntity<String> alterarUsuario(Usuario usuario) {
 
-		if (!validarCpf(usuario.getCpf())) {
+		if (!validacoes.validarCpf(usuario.getCpf())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
 		}
 
-		if (!validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
+		if (!validacoes.validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
-		if (!validarNome(usuario.getNome())) {
+		if (!validacoes.validarNome(usuario.getNome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
 
 		}
 
-		if (!validarSobrenome(usuario.getSobrenome())) {
+		if (!validacoes.validarSobrenome(usuario.getSobrenome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
@@ -218,45 +147,45 @@ public class UsuarioService {
 
 	public ResponseEntity<String> alterarIntegranteUniversidade(IntegranteUniversidade integranteUniversidade) {
 
-		if (!validarCpf(integranteUniversidade.getCpf())) {
+		if (!validacoes.validarCpf(integranteUniversidade.getCpf())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
 		}
 
-		if (!validarCodigoIdentificacao(integranteUniversidade.getCodigoIdentificacao())) {
+		if (!validacoes.validarCodigoIdentificacao(integranteUniversidade.getCodigoIdentificacao())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
-		if (!validarNome(integranteUniversidade.getNome())) {
+		if (!validacoes.validarNome(integranteUniversidade.getNome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
 
 		}
 
-		if (!validarSobrenome(integranteUniversidade.getSobrenome())) {
+		if (!validacoes.validarSobrenome(integranteUniversidade.getSobrenome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
 		}
-		
-		if (!validarMatricula(integranteUniversidade.getMatricula())) {
+
+		if (!validacoes.validarMatricula(integranteUniversidade.getMatricula())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Matricula invalida.");
 
 		}
-		
+
 		iUsuarioDAO.save(integranteUniversidade);
 
 		return ResponseEntity.ok("O usuario foi alterado com sucesso.");
 
 	}
-	
+
 	public ResponseEntity<?> consultarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
 
-		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
@@ -276,7 +205,7 @@ public class UsuarioService {
 
 	public ResponseEntity<?> consultarUsuarioPorCpf(String cpf) {
 
-		if (!validarCpf(cpf)) {
+		if (!validacoes.validarCpf(cpf)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
@@ -296,7 +225,7 @@ public class UsuarioService {
 
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
 
-		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
@@ -320,7 +249,7 @@ public class UsuarioService {
 
 	public ResponseEntity<String> deletarUsuarioPorCpf(String cpf) {
 
-		if (!validarCpf(cpf)) {
+		if (!validacoes.validarCpf(cpf)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
@@ -344,7 +273,7 @@ public class UsuarioService {
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorCodigoIdentificacao(String codigoIdentificacao) {
 
-		if (!validarCodigoIdentificacao(codigoIdentificacao)) {
+		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
@@ -374,7 +303,7 @@ public class UsuarioService {
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorCpf(String cpf) {
 
-		if (!validarCpf(cpf)) {
+		if (!validacoes.validarCpf(cpf)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
