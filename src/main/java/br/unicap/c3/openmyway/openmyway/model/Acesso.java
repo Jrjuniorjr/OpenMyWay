@@ -15,17 +15,17 @@ public class Acesso {
 
 	/*
 	 * Comentado pois no postgresql não existe tipo enum.
-	 */
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipoAcesso", nullable=false, columnDefinition = "enum('Entrada', 'Saida')")
 	private TipoAcesso tipoAcesso;
-
+	*/
+	
 	/*
 	 * Apenas usar em postgresql
-	 * 
-	 * @Column(name = "tipoAcesso") private String tipoAcesso;
-	 */
+	 */ 
+	@Column(name = "tipoAcesso")
+	private String tipoAcesso;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idUsuario", nullable=false)
@@ -46,12 +46,15 @@ public class Acesso {
 	}
 
 	/*
-	 * public String getTipoAcesso() { return tipoAcesso; }
-	 * 
-	 * public void setTipoAcesso(String tipoAcesso) { this.tipoAcesso = tipoAcesso;
-	 * }
-	 */
+	*/
+	public String getTipoAcesso() {
+		return tipoAcesso; 
+	} 
+	public void setTipoAcesso(String tipoAcesso) { 
+		this.tipoAcesso = tipoAcesso;
+	}
 
+	/*
 	public TipoAcesso getTipoAcesso() {
 		return tipoAcesso;
 	}
@@ -59,7 +62,8 @@ public class Acesso {
 	public void setTipoAcesso(TipoAcesso tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
-
+	*/
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
