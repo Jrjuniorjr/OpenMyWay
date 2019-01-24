@@ -38,9 +38,19 @@ public class Usuario {
 	@Column (name = "sobrenome", nullable=false)
 	private String sobrenome;
 	
+	/*
+	 * Comentado pois no postgresql não existe tipo enum.
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipoPessoa", nullable=false, columnDefinition = "enum('Convidado', 'Aluno', 'Funcionario', 'Professor')")
 	private TipoPessoa tipoPessoa;
+	*/
+	
+	
+	/*
+	 * Apenas usar em postgresql
+	 */ 
+	@Column(name = "tipoPessoa")
+	private String tipoPessoa;
 	
 	@OneToMany (mappedBy = "usuario",
 			fetch=FetchType.LAZY)
@@ -85,7 +95,16 @@ public class Usuario {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
+	
+	public String getTipoPessoa() {
+		return tipoPessoa; 
+	} 
+	public void setTipoPessoa(String tipoPessoa) { 
+		this.tipoPessoa = tipoPessoa;
+	}
 
+
+	/*
 	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
@@ -93,6 +112,7 @@ public class Usuario {
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
+	*/
 
 	public List<Acesso> getAcessos() {
 		return acessos;
