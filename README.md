@@ -33,7 +33,7 @@ Obs: Um IntegranteUniversidade é um Usuario.
 
 #URL
 
-localhost:8080/
+https://openmyway.herokuapp.com/
 
 #METODOS POSTS:
 

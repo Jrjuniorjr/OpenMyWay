@@ -95,8 +95,10 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);;
 			
-			acesso.setTipoAcesso(TipoAcesso.Entrada);
+			//acesso.setTipoAcesso(TipoAcesso.Entrada);
 
+			acesso.setTipoAcesso("Entrada");
+			
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
@@ -135,8 +137,10 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 
-			acesso.setTipoAcesso(TipoAcesso.Saida);
+			//acesso.setTipoAcesso(TipoAcesso.Saida);
 
+			acesso.setTipoAcesso("Saida");
+			
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);

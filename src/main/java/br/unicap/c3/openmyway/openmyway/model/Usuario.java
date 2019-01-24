@@ -41,8 +41,8 @@ public class Usuario {
 	/*
 	 * Comentado pois no postgresql não existe tipo enum.
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tipoPessoa", nullable=false, columnDefinition = "enum('Convidado', 'Aluno', 'Funcionario', 'Professor')")
-	private TipoPessoa tipoPessoa;
+	@Column(name = "tipoUsuario", nullable=false, columnDefinition = "enum('Convidado', 'Aluno', 'Funcionario', 'Professor')")
+	private TipoPessoa tipoUsuario;
 	*/
 	
 	
