@@ -85,6 +85,49 @@ public class Validacoes {
 		}
 
 	}
+	
+	public boolean validarTipoUsuarioIntegranteUniversidade(String tipoUsuario){
+	
+		/*
+		if(tipoUsuario == null){
+		
+			return false;
+			
+		}
+		
+		else if(tipoUsuario != TipoUsuario.Aluno  && tipoUsuario != TipoUsuario.Funcionario
+			&& tipoUsuario != TipoUsuario.Professor){
+			
+			return false;
+		
+		}
+		
+		else{
+		
+			return true;
+			
+		}*/
+		
+		if(tipoUsuario == null){
+		
+			return false;
+			
+		}
+		
+		else if(!tipoUsuario.equals("Aluno") && !tipoUsuario.equals("Funcionario")
+			&& !tipoUsuario.equals("Professor")){
+			
+			return false;
+		
+		}
+		
+		else{
+		
+			return true;
+			
+		}
+		
+	}
 
 	public boolean validarData(String data) {
 
