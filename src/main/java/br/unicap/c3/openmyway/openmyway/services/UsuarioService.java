@@ -22,7 +22,7 @@ public class UsuarioService {
 	@Autowired
 	private Validacoes validacoes;
 	
-	public ResponseEntity<String> validarCadastro(Usuario usuario) {
+	private ResponseEntity<String> validarCadastro(Usuario usuario) {
 	
 		if (!validacoes.validarCpf(usuario.getCpf())) {
 
