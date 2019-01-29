@@ -24,7 +24,7 @@ public class Acesso {
 	/*
 	 * Apenas usar em postgresql
 	 */ 
-	@Column(name = "tipoAcesso")
+	@Column(name = "tipoAcesso", nullable=false)
 	private String tipoAcesso;
 
 	@ManyToOne(fetch = FetchType.EAGER)
