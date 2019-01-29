@@ -81,7 +81,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/listarUsuarios")
-	public ResponseEntity<?> listarUsuarios(){
+	public ResponseEntity<List<Usuario>> listarUsuarios(){
 		
 		return usuarioService.listarUsuarios();
 	
