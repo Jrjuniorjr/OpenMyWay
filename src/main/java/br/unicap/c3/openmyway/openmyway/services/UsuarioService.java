@@ -81,7 +81,14 @@ public class UsuarioService {
 		}
 
 		else {
-
+			
+			/*
+			Comentado apenas para postgresql
+			usuario.setTipoPessoa(TipoPessoa.Convidado);
+			*/
+			
+			//usuario.setTipoPessoa("Convidado");
+			
 			iUsuarioDAO.save(usuario);
 
 			return ResponseEntity.ok("O usuario foi cadastrado com sucesso.");
