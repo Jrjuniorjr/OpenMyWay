@@ -113,7 +113,7 @@ public class UsuarioService {
 
 		}
 		
-		else if(!validacoes.validarTipoUsuario(integranteUniversidade.getTipoUsuario())){
+		else if(!validacoes.validarTipoUsuarioIntegranteUniversidade(integranteUniversidade.getTipoUsuario())){
 			
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Tipo usuario invalido.");
 
