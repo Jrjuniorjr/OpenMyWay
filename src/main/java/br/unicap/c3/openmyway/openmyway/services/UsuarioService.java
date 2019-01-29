@@ -83,11 +83,11 @@ public class UsuarioService {
 		else {
 			
 			/*
-			Comentado apenas para postgresql
-			usuario.setTipoPessoa(TipoPessoa.Convidado);
+			Comentado apenas para o uso de postgresql
+			usuario.setTipoUsuario(TipoUsuario.Convidado);
 			*/
 			
-			//usuario.setTipoPessoa("Convidado");
+			usuario.setTipoUsuario("Convidado");
 			
 			iUsuarioDAO.save(usuario);
 
@@ -112,7 +112,13 @@ public class UsuarioService {
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Matricula invalida.");
 
 		}
+		
+		else if(!validacoes.validarTipoUsuario(integranteUniversidade.getTipoUsuario())){
+			
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Tipo usuario invalido.");
 
+		}
+		
 		else {
 
 			iUsuarioDAO.save(integranteUniversidade);
