@@ -80,6 +80,13 @@ public class UsuarioController {
 	
 	}
 	
+	@GetMapping("/listarUsuarios")
+	public ResponseEntity<?> listarUsuarios(){
+		
+		return usuarioService.listarUsuarios();
+	
+	}
+	
 	@GetMapping("/gerarRelatorioAcessosPorCodigoIdentificacao/{codigoIdentificacao}")
 	public ResponseEntity<?> gerarRelatorioPorCodigoIdentificacao(
 			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
