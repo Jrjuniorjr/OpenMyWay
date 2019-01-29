@@ -271,7 +271,7 @@ public class UsuarioService {
 
 	}
 	
-	public ResponseEntity<?> listarUsuarios(){
+	public ResponseEntity<List<Usuario>> listarUsuarios(){
 	
 		
 		List<Usuario> usuarios = iUsuarioDAO.findAll();
