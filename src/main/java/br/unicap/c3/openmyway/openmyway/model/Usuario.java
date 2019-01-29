@@ -48,6 +48,7 @@ public class Usuario {
 	
 	/*
 	 * Apenas usar em postgresql
+	 *
 	 */ 
 	@Column(name = "tipoUsuario", nullable=false)
 	private String tipoUsuario;
