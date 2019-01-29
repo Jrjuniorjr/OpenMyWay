@@ -1,5 +1,7 @@
 package br.unicap.c3.openmyway.openmyway.validacoes;
 
+import org.springframework.stereotype.Component;
+
 @Component
 public class Validacoes {
 
