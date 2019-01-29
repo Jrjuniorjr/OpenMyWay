@@ -49,7 +49,7 @@ public class Usuario {
 	/*
 	 * Apenas usar em postgresql
 	 */ 
-	@Column(name = "tipoUsuario")
+	@Column(name = "tipoUsuario", nullable=false)
 	private String tipoUsuario;
 	
 	@OneToMany (mappedBy = "usuario",
