@@ -12,15 +12,15 @@ public class Validacoes {
 			return false;
 		}
 		
-		else if(!isValidCPF(cpf)) {
+		/*else if(!isValidCPF(cpf)) {
 			
 			return false;
 			
-		}
+		}*/
 
 		else {
 
-			return false;
+			return true;
 
 		}
 
