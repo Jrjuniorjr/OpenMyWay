@@ -1,5 +1,6 @@
 package br.unicap.c3.openmyway.openmyway.validacoes;
 
+@Component
 public class Validacoes {
 
 	public boolean validarCpf(String cpf) {
