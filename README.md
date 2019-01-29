@@ -6,7 +6,7 @@ Obs: Formato de data: DD-MM-YYYY
 Usuario:
 
 {
-Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoPessoa, acessos;
+Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos;
 
 }
 
@@ -16,7 +16,7 @@ Obs: tipoPessoa deve ser apenas Convidado se for um usuario.
 IntegranteUniversidade:
 
 {
-Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoPessoa, acessos, matricula;
+Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos, matricula;
 
 }
 
@@ -45,11 +45,10 @@ Formato JSON:
 
 {
 
-	"cpf":"xxxxx",
-	"codigoIdentificacao":"xxxxx",
-	"nome":"xxxxx",
-	"sobrenome":"xxxxx",
-	"tipoPessoa":"Convidado"
+	"cpf":String,
+	"codigoIdentificacao":String,
+	"nome":String,
+	"sobrenome":String
 	
 }
 
@@ -63,12 +62,12 @@ Formato JSON:
 
 {
 
-	"cpf":"xxxxx",
-	"codigoIdentificacao":"xxxxx",
-	"nome":"xxxxx",
-	"sobrenome":"xxxxx",
-	"tipoPessoa":"xxxxx",
-	"matricula":"xxxxx"
+	"cpf":String,
+	"codigoIdentificacao":String,
+	"nome":String,
+	"sobrenome":String,
+	"tipoPessoa":String,
+	"matricula":String
 	
 }
 
@@ -86,11 +85,11 @@ Formato JSON:
 
 {
 
-	"cpf":"xxxxx",
-	"codigoIdentificacao":"xxxxx",
-	"nome":"xxxxx",
-	"sobrenome":"xxxxx",
-	"tipoPessoa":"Convidado",
+	"cpf":String,
+	"codigoIdentificacao":String,
+	"nome":String,
+	"sobrenome":String,
+	"tipoPessoa":String,
 	
 }
 
@@ -105,11 +104,12 @@ Formato JSON:
 
 {
 
-	"cpf":"xxxxx",
-	"codigoIdentificacao":"xxxxx",
-	"nome":"xxxxx",
-	"sobrenome":"xxxxx",
-	"tipoPessoa":"xxxxx",
+	"cpf":String,
+	"codigoIdentificacao":String,
+	"nome":String,
+	"sobrenome":String,
+	"tipoPessoa":String,
+	"matricula":String
 	
 }
 
@@ -123,7 +123,12 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 
 usuario/deletarPorCpf
 
-Passar pelo Header apenas o cpf(key: cpf).
+Formato JSON:
+
+{
+
+	"cpf":String	
+}
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
@@ -131,7 +136,13 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 
 usuario/deletarPorCodigoIdentificacao
 
-Passar pelo Header apenas o codigo de identificacao(key: codigoIdentificacao).
+Formato JSON:
+
+{
+
+	"codigoIdentificacao":String,
+	
+}
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
@@ -139,49 +150,55 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 
 #Consultar um usuario por cpf
 
-usuario/consultarPorCpf/xxxxx
+usuario/consultarPorCpf/String
 
-Obs: No lugar de xxxxx, substituir por cpf.
+Obs: No lugar do String, substituir por cpf.
 
 Retorno: OK com o usuario, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
 #Consultar um usuario por codigo de identificacao
 
-usuario/consultarPorCodigoIdentificacao/xxxxx
+usuario/consultarPorCodigoIdentificacao/String
 
-Obs: No lugar de xxxxx, substituir por codigo de identificacao.
+Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com o usuario, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
+#Listar todos os usuarios
+
+usuario/listarUsuarios
+
+Retorno: OK com a lista de usuarios ou NOT_FOUND com a lista de usuarios vazia.
+
 #Gerar relatorio de acessos de um usuario por cpf
 
-usuario/gerarRelatorioAcessosPorCpf/xxxxx
+usuario/gerarRelatorioAcessosPorCpf/String
 
-Obs: No lugar de xxxxx, substituir por cpf.
+Obs: No lugar do String, substituir por cpf.
 
-Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com texto(se a lista tiver vazia).
+Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
 
 #Gerar relatorio de acessos de um usuario por codigo de identificacao
 
-usuario/gerarRelatorioAcessosPorCodigoIdentificacao/xxxxx
+usuario/gerarRelatorioAcessosPorCodigoIdentificacao/String
 
-Obs: No lugar de xxxxx, substituir por codigo de identificacao.
+Obs: No lugar do String, substituir por codigoIdentificacao.
 
-Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com texto(se a lista tiver vazia).
+Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
 
 #Solicitar acesso de entrada
 
-acesso/solicitarAcessoEntrada/xxxxx
+acesso/solicitarAcessoEntrada/String
 
-Obs: No lugar de xxxxx, substituir por codigo de identificacao.
+Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe).
 
 #Solicitar acesso de saida
 
-acesso/solicitarAcessoSaida/xxxxx
+acesso/solicitarAcessoSaida/String
 
-Obs: No lugar de xxxxx, substituir por codigo de identificacao.
+Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe).
 
@@ -189,26 +206,26 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 
 acesso/gerarRelatorioAcessos
 
-Retorno: OK com uma lista de acessos ou NOT_FOUND(se a lista tiver vazia).
+Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
 
 #Gerar relatorio de acessos por data
 
-acesso/gerarRelatorioAcessosPorData/xxxxx
+acesso/gerarRelatorioAcessosPorData/String
 
-Obs: No lugar de xxxxx, substituir por data.
+Obs: No lugar do String, substituir por data.
 
 Obs: Formato da data: DD-MM-YYYY
 
-Retorno: OK com uma lista de acessos ou NOT_FOUND(se a lista tiver vazia).
+Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
 
 #Gerar relatorio de acessos por data e hora
 
-acesso/gerarRelatorioAcessosPorDataEHora/xxxxx/xxxxx
+acesso/gerarRelatorioAcessosPorDataEHora/String/String
 
-Obs: Obs: No lugar do primeiro xxxxx, substituir por data. No lugar do segundo xxxxx, substituir por hora.
+Obs: No lugar do primeiro String, substituir por data. No lugar do segundo String, substituir por hora.
 
 Obs: Formato da data: DD-MM-YYYY
 
-oBS: Formato da hora: HH:MM:SS
+Obs: Formato da hora: HH:MM:SS
 
-Retorno: OK com uma lista de acessos ou NOT_FOUND(se a lista tiver vazia).
+Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
