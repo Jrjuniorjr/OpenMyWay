@@ -67,14 +67,14 @@ public class UsuarioController {
 	
 	@DeleteMapping("/deletarPorCodigoIdentificacao")
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(
-			@RequestHeader("codigoIdentificacao") String codigoIdentificacao){
+			@RequestBody String codigoIdentificacao){
 		
 		return usuarioService.deletarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 	
 	}
 	
 	@DeleteMapping("/deletarPorCpf")
-	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestHeader("cpf") String cpf){
+	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestBody String cpf){
 	
 		return usuarioService.deletarUsuarioPorCpf(cpf);
 	
