@@ -270,6 +270,25 @@ public class UsuarioService {
 		}
 
 	}
+	
+	public ResponseEntity<?> listarUsuarios(){
+	
+		
+		List<Acesso> usuarios = iUsuarioDAO.findAll();
+
+		if (usuarios.isEmpty()) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuarios);
+
+		}
+
+		else {
+
+			return ResponseEntity.ok(usuarios);
+
+		}	
+		
+	}
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorCodigoIdentificacao(String codigoIdentificacao) {
 
@@ -289,7 +308,7 @@ public class UsuarioService {
 
 		if (usuario.getAcessos().isEmpty()) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao possui acessos.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
 
 		}
 
@@ -319,7 +338,7 @@ public class UsuarioService {
 
 		if (usuario.getAcessos().isEmpty()) {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao possui acessos.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
 
 		}
 
