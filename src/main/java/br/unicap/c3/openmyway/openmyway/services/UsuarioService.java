@@ -274,7 +274,7 @@ public class UsuarioService {
 	public ResponseEntity<?> listarUsuarios(){
 	
 		
-		List<Acesso> usuarios = iUsuarioDAO.findAll();
+		List<Usuario> usuarios = iUsuarioDAO.findAll();
 
 		if (usuarios.isEmpty()) {
 
