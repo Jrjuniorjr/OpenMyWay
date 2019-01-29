@@ -49,8 +49,8 @@ public class Usuario {
 	/*
 	 * Apenas usar em postgresql
 	 */ 
-	@Column(name = "tipoPessoa")
-	private String tipoPessoa;
+	@Column(name = "tipoUsuario")
+	private String tipoUsuario;
 	
 	@OneToMany (mappedBy = "usuario",
 			fetch=FetchType.LAZY)
@@ -96,21 +96,21 @@ public class Usuario {
 		this.sobrenome = sobrenome;
 	}
 	
-	public String getTipoPessoa() {
-		return tipoPessoa; 
+	public String getTipoUsuario() {
+		return tipoUsuario; 
 	} 
-	public void setTipoPessoa(String tipoPessoa) { 
-		this.tipoPessoa = tipoPessoa;
+	public void setTipoUsuario(String tipoUsuario) { 
+		this.tipoUsuario = tipoUsuario;
 	}
 
 
 	/*
-	public TipoPessoa getTipoPessoa() {
-		return tipoPessoa;
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 	*/
 
