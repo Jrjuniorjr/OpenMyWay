@@ -9,7 +9,7 @@ public class Validacoes {
 
 		if (cpf == null) {
 
-			return false;
+			return true;
 		}
 		
 		/*else if(!isValidCPF(cpf)) {
@@ -30,7 +30,7 @@ public class Validacoes {
 
 		if (codigoIdentificacao == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
@@ -45,7 +45,7 @@ public class Validacoes {
 
 		if (nome == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
@@ -60,7 +60,7 @@ public class Validacoes {
 
 		if (sobrenome == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
@@ -75,7 +75,7 @@ public class Validacoes {
 
 		if (matricula == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
@@ -90,7 +90,7 @@ public class Validacoes {
 
 		if (data == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
@@ -105,7 +105,7 @@ public class Validacoes {
 
 		if (hora == null) {
 
-			return false;
+			return true;
 		}
 
 		else {
