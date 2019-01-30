@@ -6,6 +6,7 @@ Obs: Formato de data: DD-MM-YYYY
 Usuario:
 
 {
+
 Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos;
 
 }
@@ -16,6 +17,7 @@ Obs: tipoPessoa deve ser apenas Convidado se for um usuario.
 IntegranteUniversidade:
 
 {
+
 Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos, matricula;
 
 }
@@ -25,6 +27,7 @@ Obs: tipoPessoa deve ser Aluno, Professor ou Funcionario se for um IntegranteUni
 Acesso:
 
 {
+
 Atributos: id, tipoAcesso, usuario, data, hora;
 
 }
@@ -71,7 +74,7 @@ Formato JSON:
 	
 }
 
-Obs: tipoPessoa deve ser Aluno, Professor ou Funcionario na funcionalidade de cadastar um integrante da universidade.
+Obs: tipoUsuario deve ser Aluno, Professor ou Funcionario.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou CONFLICT com texto(se o usuario já existe).
 
@@ -112,7 +115,7 @@ Formato JSON:
 	
 }
 
-Obs: tipoPessoa deve ser Aluno, Professor ou Funcionario na funcionalidade de alterar um integrante da universidade.
+Obs: tipoUsuario deve ser Aluno, Professor ou Funcionario.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos).
 
@@ -169,6 +172,8 @@ usuario/listarUsuarios
 
 Retorno: OK com a lista de usuarios ou NOT_FOUND com a lista de usuarios vazia.
 
+Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
+
 #Gerar relatorio de acessos de um usuario por cpf
 
 usuario/gerarRelatorioAcessosPorCpf/String
@@ -177,6 +182,8 @@ Obs: No lugar do String, substituir por cpf.
 
 Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
 
+Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
+
 #Gerar relatorio de acessos de um usuario por codigo de identificacao
 
 usuario/gerarRelatorioAcessosPorCodigoIdentificacao/String
@@ -184,6 +191,8 @@ usuario/gerarRelatorioAcessosPorCodigoIdentificacao/String
 Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
+
+Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
 
 #Solicitar acesso de entrada
 
@@ -206,6 +215,8 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 acesso/gerarRelatorioAcessos
 
 Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
+
+Obs: Um acesso tem um usuario e um usuario tem uma lista de acessos, mas para essa funcionalidade, usuario tem a lista de acessos e esta lista de acessos ta null (para evitar looping na hora de exibição).
 
 #Gerar relatorio de acessos por data
 
