@@ -21,58 +21,10 @@ public class UsuarioService {
 
 	@Autowired
 	private Validacoes validacoes;
-	
-	private ResponseEntity<String> validarCadastro(Usuario usuario) {
-	
-		if (!validacoes.validarCpf(usuario.getCpf())) {
-
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
-
-		}
-
-		if (!validacoes.validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
-
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
-
-		}
-
-		if (!validacoes.validarNome(usuario.getNome())) {
-
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
-
-		}
-
-		if (!validacoes.validarSobrenome(usuario.getSobrenome())) {
-
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
-
-		}
-
-		Usuario usuarioPorCodigo = iUsuarioDAO.findByCodigoIdentificacao(usuario.getCodigoIdentificacao());
-
-		Usuario usuarioPorCpf = iUsuarioDAO.findByCpf(usuario.getCpf());
-
-		if (usuarioPorCodigo != null) {
-
-			return ResponseEntity.status(HttpStatus.CONFLICT)
-					.body("Usuario com o codigo de identificacao passado ja cadastrado.");
-
-		} else if (usuarioPorCpf != null) {
-
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario com o cpf passado ja cadastrado.");
-
-		}
-
-		else {
-
-			return ResponseEntity.ok().build();
-		}
-
-	}
 
 	public ResponseEntity<String> cadastrarUsuario(Usuario usuario) {
 
-		ResponseEntity entity = validarCadastro(usuario);
+		ResponseEntity entity = validacoes.validarCadastro(usuario);
 
 		if (entity.getStatusCode() != HttpStatus.OK) {
 
@@ -99,7 +51,7 @@ public class UsuarioService {
 
 	public ResponseEntity<String> cadastrarIntegranteUniversidade(IntegranteUniversidade integranteUniversidade) {
 
-		ResponseEntity entity = validarCadastro(integranteUniversidade);
+		ResponseEntity entity = validacoes.validarCadastro(integranteUniversidade);
 
 		if (entity.getStatusCode() != HttpStatus.OK) {
 
