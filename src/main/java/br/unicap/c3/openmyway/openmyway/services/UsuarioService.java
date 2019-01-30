@@ -245,7 +245,9 @@ public class UsuarioService {
 		List<Usuario> usuarios = iUsuarioDAO.findAll();
 		
 		for(Usuario usuario: usuarios){
-			usuario.getAcesso.setUsuario(null);	
+			for(Acesso acesso: usuario.getAcessos()) {
+				acesso.setUsuario(null);
+			}
 		}
 
 		if (usuarios.isEmpty()) {
