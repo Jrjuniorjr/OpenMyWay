@@ -1,6 +1,5 @@
 package br.unicap.c3.openmyway.openmyway.services;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,14 @@ public class UsuarioService {
 		}
 
 		else {
-			
+
 			/*
-			Comentado apenas para o uso de postgresql
-			usuario.setTipoUsuario(TipoUsuario.Convidado);
-			*/
-			
+			 * Comentado apenas para o uso de postgresql
+			 * usuario.setTipoUsuario(TipoUsuario.Convidado);
+			 */
+
 			usuario.setTipoUsuario("Convidado");
-			
+
 			iUsuarioDAO.save(usuario);
 
 			return ResponseEntity.ok("O usuario foi cadastrado com sucesso.");
@@ -64,13 +63,13 @@ public class UsuarioService {
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Matricula invalida.");
 
 		}
-		
-		else if(!validacoes.validarTipoUsuarioIntegranteUniversidade(integranteUniversidade.getTipoUsuario())){
-			
+
+		else if (!validacoes.validarTipoUsuarioIntegranteUniversidade(integranteUniversidade.getTipoUsuario())) {
+
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Tipo usuario invalido.");
 
 		}
-		
+
 		else {
 
 			iUsuarioDAO.save(integranteUniversidade);
@@ -238,10 +237,9 @@ public class UsuarioService {
 		}
 
 	}
-	
-	public ResponseEntity<List<Usuario>> listarUsuarios(){
-	
-		
+
+	public ResponseEntity<List<Usuario>> listarUsuarios() {
+
 		List<Usuario> usuarios = iUsuarioDAO.findAll();
 
 		if (usuarios.isEmpty()) {
@@ -252,20 +250,20 @@ public class UsuarioService {
 
 		else {
 
-			for(Usuario usuario: usuarios){
-			
-				for(Acesso acesso: usuario.getAcessos()) {
-			
+			for (Usuario usuario : usuarios) {
+
+				for (Acesso acesso : usuario.getAcessos()) {
+
 					acesso.setUsuario(null);
-		
+
 				}
-		
+
 			}
-			
+
 			return ResponseEntity.ok(usuarios);
 
-		}	
-		
+		}
+
 	}
 
 	public ResponseEntity<?> gerarRelatorioAcessoPorCodigoIdentificacao(String codigoIdentificacao) {
@@ -292,16 +290,12 @@ public class UsuarioService {
 
 		else {
 
-			for(Usuario user: usuarios){
-			
-				for(Acesso acesso: user.getAcessos()) {
-			
-					acesso.setUsuario(null);
-		
-				}
-		
+			for (Acesso acesso : usuario.getAcessos()) {
+
+				acesso.setUsuario(null);
+
 			}
-			
+
 			return ResponseEntity.ok(usuario);
 
 		}
@@ -331,15 +325,11 @@ public class UsuarioService {
 		}
 
 		else {
-			
-			for(Usuario user: usuarios){
-			
-				for(Acesso acesso: user.getAcessos()) {
-			
-					acesso.setUsuario(null);
-		
-				}
-		
+
+			for (Acesso acesso : usuario.getAcessos()) {
+
+				acesso.setUsuario(null);
+
 			}
 
 			return ResponseEntity.ok(usuario);

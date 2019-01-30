@@ -24,7 +24,7 @@ public class AcessoService {
 
 	@Autowired
 	private Validacoes validacoes;
-	
+
 	public ResponseEntity<?> solicitarAcessoEntrada(String codigoIdentificacao) {
 
 		if (!validacoes.validarCodigoIdentificacao(codigoIdentificacao)) {
@@ -36,7 +36,7 @@ public class AcessoService {
 		ResponseEntity<?> entity = usuarioService.consultarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 
 		if (entity.getStatusCode() != HttpStatus.OK) {
-			
+
 			return entity;
 		}
 
@@ -52,12 +52,13 @@ public class AcessoService {
 
 			Acesso acesso = new Acesso();
 
-			acesso.setUsuario(usuario);;
-			
-			//acesso.setTipoAcesso(TipoAcesso.Entrada);
+			acesso.setUsuario(usuario);
+			;
+
+			// acesso.setTipoAcesso(TipoAcesso.Entrada);
 
 			acesso.setTipoAcesso("Entrada");
-			
+
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
@@ -96,10 +97,10 @@ public class AcessoService {
 
 			acesso.setUsuario(usuario);
 
-			//acesso.setTipoAcesso(TipoAcesso.Saida);
+			// acesso.setTipoAcesso(TipoAcesso.Saida);
 
 			acesso.setTipoAcesso("Saida");
-			
+
 			acesso.converterCalendarToStringAcesso();
 
 			iAcessoDAO.save(acesso);
@@ -122,6 +123,16 @@ public class AcessoService {
 
 		else {
 
+			for (Acesso acesso : acessos) {
+
+				for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
+
+					acesso1.setUsuario(null);
+
+				}
+
+			}
+
 			return ResponseEntity.ok(acessos);
 
 		}
@@ -143,19 +154,28 @@ public class AcessoService {
 
 		}
 
+		for (Acesso acesso : acessos) {
+
+			for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
+
+				acesso1.setUsuario(null);
+
+			}
+
+		}
+
 		return ResponseEntity.ok(acessos);
 
 	}
-	
-	public ResponseEntity<?> gerarRelatorioAcessosPorDataEHora(String data, String hora){
-		
-		
+
+	public ResponseEntity<?> gerarRelatorioAcessosPorDataEHora(String data, String hora) {
+
 		if (!validacoes.validarData(data)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data invalida.");
 
 		}
-		
+
 		if (!validacoes.validarHora(hora)) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Hora invalida.");
@@ -167,6 +187,16 @@ public class AcessoService {
 		if (acessos.isEmpty()) {
 
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
+
+		}
+
+		for (Acesso acesso : acessos) {
+
+			for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
+
+				acesso1.setUsuario(null);
+
+			}
 
 		}
 
