@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Validacoes {
 	
-	private ResponseEntity<String> validarCadastro(Usuario usuario) {
+	public ResponseEntity<String> validarCadastro(Usuario usuario) {
 	
 		if (!validacoes.validarCpf(usuario.getCpf())) {
 
