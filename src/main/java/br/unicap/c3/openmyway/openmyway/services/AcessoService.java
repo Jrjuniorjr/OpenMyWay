@@ -125,11 +125,7 @@ public class AcessoService {
 
 			for (Acesso acesso : acessos) {
 
-				for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
-
-					acesso1.setUsuario(null);
-
-				}
+				acesso.getUsuario().setAcessos(null);
 
 			}
 
@@ -156,11 +152,7 @@ public class AcessoService {
 
 		for (Acesso acesso : acessos) {
 
-			for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
-
-				acesso1.setUsuario(null);
-
-			}
+			acesso.getUsuario().setAcessos(null);
 
 		}
 
@@ -192,11 +184,7 @@ public class AcessoService {
 
 		for (Acesso acesso : acessos) {
 
-			for (Acesso acesso1 : acesso.getUsuario().getAcessos()) {
-
-				acesso1.setUsuario(null);
-
-			}
+			acesso.getUsuario().setAcessos(null);
 
 		}
 
