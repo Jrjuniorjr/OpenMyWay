@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
 import br.unicap.c3.openmyway.openmyway.model.IntegranteUniversidade;
-import br.unicap.c3.openmyway.openmyway.model.Usuario;
+import br.unicap.c3.openmyway.openmyway.model.*;
 import br.unicap.c3.openmyway.openmyway.validacoes.Validacoes;
 
 @Service
