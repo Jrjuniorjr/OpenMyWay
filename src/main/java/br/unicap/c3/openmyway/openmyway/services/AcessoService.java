@@ -149,14 +149,17 @@ public class AcessoService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
 
 		}
+		
+		else{
+			for (Acesso acesso : acessos) {
 
-		for (Acesso acesso : acessos) {
+				acesso.getUsuario().setAcessos(null);
 
-			acesso.getUsuario().setAcessos(null);
+			}
+			
 
+			return ResponseEntity.ok(acessos);
 		}
-
-		return ResponseEntity.ok(acessos);
 
 	}
 
@@ -181,14 +184,18 @@ public class AcessoService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(acessos);
 
 		}
+		
+		else{
 
-		for (Acesso acesso : acessos) {
+			for (Acesso acesso : acessos) {
 
-			acesso.getUsuario().setAcessos(null);
+				acesso.getUsuario().setAcessos(null);
 
+			}
+
+			return ResponseEntity.ok(acessos);
+			
 		}
-
-		return ResponseEntity.ok(acessos);
 
 	}
 
