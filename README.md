@@ -66,7 +66,7 @@ Formato JSON:
 	"codigoIdentificacao":String,
 	"nome":String,
 	"sobrenome":String,
-	"tipoPessoa":String,
+	"tipoUsuario":String,
 	"matricula":String
 	
 }
@@ -88,8 +88,7 @@ Formato JSON:
 	"cpf":String,
 	"codigoIdentificacao":String,
 	"nome":String,
-	"sobrenome":String,
-	"tipoPessoa":String,
+	"sobrenome":String
 	
 }
 
@@ -108,7 +107,7 @@ Formato JSON:
 	"codigoIdentificacao":String,
 	"nome":String,
 	"sobrenome":String,
-	"tipoPessoa":String,
+	"tipoUsuario":String,
 	"matricula":String
 	
 }
@@ -140,7 +139,7 @@ Formato JSON:
 
 {
 
-	"codigoIdentificacao":String,
+	"codigoIdentificacao":String
 	
 }
 
