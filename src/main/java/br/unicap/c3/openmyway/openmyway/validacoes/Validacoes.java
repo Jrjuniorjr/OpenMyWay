@@ -34,7 +34,7 @@ public class Validacoes {
 
 		}
 
-		if (this.validarSobrenome(usuario.getSobrenome())) {
+		if (!this.validarSobrenome(usuario.getSobrenome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
