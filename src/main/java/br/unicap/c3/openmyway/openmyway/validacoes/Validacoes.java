@@ -1,31 +1,40 @@
 package br.unicap.c3.openmyway.openmyway.validacoes;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import br.unicap.c3.openmyway.openmyway.interfacesdao.IUsuarioDAO;
+import br.unicap.c3.openmyway.openmyway.model.Usuario;
 
 @Component
 public class Validacoes {
 	
+	@Autowired
+	private IUsuarioDAO iUsuarioDAO;
+	
 	public ResponseEntity<String> validarCadastro(Usuario usuario) {
 	
-		if (!validacoes.validarCpf(usuario.getCpf())) {
+		if (!this.validarCpf(usuario.getCpf())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
 
 		}
 
-		if (!validacoes.validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
+		if (!this.validarCodigoIdentificacao(usuario.getCodigoIdentificacao())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Codigo de identificacao invalido.");
 
 		}
 
-		if (!validacoes.validarNome(usuario.getNome())) {
+		if (!this.validarNome(usuario.getNome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Nome invalido.");
 
 		}
 
-		if (!validacoes.validarSobrenome(usuario.getSobrenome())) {
+		if (this.validarSobrenome(usuario.getSobrenome())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Sobrenome invalido.");
 
