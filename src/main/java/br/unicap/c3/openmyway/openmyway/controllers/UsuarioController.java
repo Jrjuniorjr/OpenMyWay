@@ -68,16 +68,16 @@ public class UsuarioController {
 	
 	}
 	
-	@DeleteMapping("/deletarPorCodigoIdentificacao")
+	@DeleteMapping("/deletarPorCodigoIdentificacao/{codigoIdentificacao}")
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(
-			@RequestBody String codigoIdentificacao){
+			@PathVariable("codigoIdentificacao") String codigoIdentificacao){
 		
 		return usuarioService.deletarUsuarioPorCodigoIdentificacao(codigoIdentificacao);
 	
 	}
 	
-	@DeleteMapping("/deletarPorCpf")
-	public ResponseEntity<String> deletarUsuarioPorCpf(@RequestBody String cpf){
+	@DeleteMapping("/deletarPorCpf/{cpf}")
+	public ResponseEntity<String> deletarUsuarioPorCpf(@PathVariable("cpf") String cpf){
 	
 		return usuarioService.deletarUsuarioPorCpf(cpf);
 	
