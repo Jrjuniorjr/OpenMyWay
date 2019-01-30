@@ -228,6 +228,8 @@ Obs: Formato da data: DD-MM-YYYY
 
 Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
 
+Obs: Um acesso tem um usuario e um usuario tem uma lista de acessos, mas para essa funcionalidade, usuario tem a lista de acessos e esta lista de acessos ta null (para evitar looping na hora de exibição).
+
 #Gerar relatorio de acessos por data e hora
 
 acesso/gerarRelatorioAcessosPorDataEHora/String/String
@@ -239,3 +241,5 @@ Obs: Formato da data: DD-MM-YYYY
 Obs: Formato da hora: HH:MM:SS
 
 Retorno: OK com uma lista de acessos ou NOT_FOUND com a lista de acessos vazia.
+
+Obs: Um acesso tem um usuario e um usuario tem uma lista de acessos, mas para essa funcionalidade, usuario tem a lista de acessos e esta lista de acessos ta null (para evitar looping na hora de exibição).
