@@ -243,6 +243,10 @@ public class UsuarioService {
 	
 		
 		List<Usuario> usuarios = iUsuarioDAO.findAll();
+		
+		for(Usuario usuario: usuarios){
+			usuario.getAcesso.setUsuario(null);	
+		}
 
 		if (usuarios.isEmpty()) {
 
@@ -282,6 +286,12 @@ public class UsuarioService {
 
 		else {
 
+			for(Usuario usuario: usuarios){
+			
+				usuario.getAcesso.setUsuario(null);	
+			
+			}
+			
 			return ResponseEntity.ok(usuario);
 
 		}
@@ -311,6 +321,12 @@ public class UsuarioService {
 		}
 
 		else {
+			
+			for(Usuario usuario: usuarios){
+			
+				usuario.getAcesso.setUsuario(null);	
+		
+			}
 
 			return ResponseEntity.ok(usuario);
 
