@@ -123,28 +123,17 @@ Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não e
 
 #Deletar um usuario por cpf
 
-usuario/deletarPorCpf
+usuario/deletarPorCpf/String
 
-Formato JSON:
-
-{
-
-	"cpf":String	
-}
+Obs: No lugar do String, substituir por cpf.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
 #Deletar um usuario por codigo de identificacao
 
-usuario/deletarPorCodigoIdentificacao
+usuario/deletarPorCodigoIdentificacao/String
 
-Formato JSON:
-
-{
-
-	"codigoIdentificacao":String
-	
-}
+Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com texto, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
