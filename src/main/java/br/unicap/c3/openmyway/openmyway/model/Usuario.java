@@ -2,18 +2,7 @@ package br.unicap.c3.openmyway.openmyway.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Usuario")
@@ -54,7 +43,7 @@ public class Usuario {
 	private String tipoUsuario;
 	
 	@OneToMany (mappedBy = "usuario",
-			fetch=FetchType.LAZY)
+			fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
 	private List<Acesso> acessos;
 
 	public Integer getId() {
