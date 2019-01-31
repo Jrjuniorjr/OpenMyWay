@@ -61,6 +61,22 @@ public class Validacoes {
 		}
 
 	}
+	
+	public boolean validarId(Integer id){
+	
+		if(id == null){
+		
+			return false;
+		
+		}
+		
+		else{
+		
+			return true;
+			
+		}
+	
+	}
 
 	public boolean validarCpf(String cpf) {
 
