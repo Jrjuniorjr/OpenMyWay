@@ -38,7 +38,7 @@ Obs: Um IntegranteUniversidade é um Usuario.
 
 https://openmyway.herokuapp.com/
 
-#METODOS POSTS:
+#METODOS POST:
 
 #Cadastrar um usuario
 
