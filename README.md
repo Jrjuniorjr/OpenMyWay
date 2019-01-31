@@ -87,7 +87,8 @@ usuario/alterarUsuario
 Formato JSON:
 
 {
-
+	
+	"id":int,
 	"cpf":String,
 	"codigoIdentificacao":String,
 	"nome":String,
@@ -106,6 +107,7 @@ Formato JSON:
 
 {
 
+	"id":int,
 	"cpf":String,
 	"codigoIdentificacao":String,
 	"nome":String,
@@ -147,6 +149,8 @@ Obs: No lugar do String, substituir por cpf.
 
 Retorno: OK com o usuario, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
 
+Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
+
 #Consultar um usuario por codigo de identificacao
 
 usuario/consultarPorCodigoIdentificacao/String
@@ -154,6 +158,8 @@ usuario/consultarPorCodigoIdentificacao/String
 Obs: No lugar do String, substituir por codigoIdentificacao.
 
 Retorno: OK com o usuario, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos) ou NOT_FOUND com texto(se o usuario não existe).
+
+Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
 
 #Listar todos os usuarios
 
