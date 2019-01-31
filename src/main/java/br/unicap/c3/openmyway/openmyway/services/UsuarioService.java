@@ -165,9 +165,20 @@ public class UsuarioService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encontrado.");
 
 		}
+		
+		else{
+		
+			for (Acesso acesso : usuario.getAcessos()) {
 
-		return ResponseEntity.ok(usuario);
+				acesso.setUsuario(null);
 
+			}
+
+		
+			return ResponseEntity.ok(usuario);
+
+		}
+		
 	}
 
 	public ResponseEntity<?> consultarUsuarioPorCpf(String cpf) {
@@ -186,8 +197,20 @@ public class UsuarioService {
 
 		}
 
-		return ResponseEntity.ok(usuario);
 
+		else{
+		
+			for (Acesso acesso : usuario.getAcessos()) {
+
+				acesso.setUsuario(null);
+
+			}
+
+		
+			return ResponseEntity.ok(usuario);
+
+		}
+		
 	}
 
 	public ResponseEntity<String> deletarUsuarioPorCodigoIdentificacao(String codigoIdentificacao) {
