@@ -82,6 +82,12 @@ public class UsuarioService {
 
 	public ResponseEntity<String> alterarUsuario(Usuario usuario) {
 
+		if (!validacoes.validarId(usuario.getId())) {
+
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Chave primaria do usuario passado invalido.");
+
+		}
+		
 		if (!validacoes.validarCpf(usuario.getCpf())) {
 
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("CPF invalido.");
