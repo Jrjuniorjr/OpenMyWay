@@ -11,7 +11,7 @@ Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos;
 
 }
 
-Obs: tipoPessoa deve ser apenas Convidado se for um usuario.
+Obs: tipoUsuario deve ser apenas Convidado se for um usuario.
 
 
 IntegranteUniversidade:
@@ -22,7 +22,7 @@ Atributos: id, cpf, codigoIdentificacao, nome, sobrenome, tipoUsuario, acessos, 
 
 }
 
-Obs: tipoPessoa deve ser Aluno, Professor ou Funcionario se for um IntegranteUniversidade.
+Obs: tipoUsuario deve ser Aluno, Professor ou Funcionario se for um IntegranteUniversidade.
 
 Acesso:
 
@@ -88,7 +88,7 @@ Formato JSON:
 
 {
 	
-	"id":int,
+	"id":Integer,
 	"cpf":String,
 	"codigoIdentificacao":String,
 	"nome":String,
@@ -107,7 +107,7 @@ Formato JSON:
 
 {
 
-	"id":int,
+	"id":Integer,
 	"cpf":String,
 	"codigoIdentificacao":String,
 	"nome":String,
