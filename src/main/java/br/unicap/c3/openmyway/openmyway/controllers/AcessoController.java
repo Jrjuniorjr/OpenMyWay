@@ -19,31 +19,38 @@ public class AcessoController {
 	
 	@GetMapping("/solicitarAcessoEntrada/{codigoIdentificacao}")
 	public ResponseEntity<?> solicitarAcessoEntrada(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+		
 		return acessoService.solicitarAcessoEntrada(codigoIdentificacao);
+	
 	}
 	
 	@GetMapping("/solicitarAcessoSaida/{codigoIdentificacao}")
 	public ResponseEntity<?> solicitarAcessoSaida(@PathVariable("codigoIdentificacao") String codigoIdentificacao){
+	
 		return acessoService.solicitarAcessoSaida(codigoIdentificacao);
+	
 	}
 	
 	@GetMapping("/gerarRelatorioAcessos")
 	public ResponseEntity<List<Acesso>> gerarRelatorioAcesso(){
+	
 		return acessoService.gerarRelatorioAcesso();
+	
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorData/{data}")
 	public ResponseEntity<?> gerarRelatorioAcessoPorData(@PathVariable("data") String data){
+	
 		return acessoService.gerarRelatorioAcessoPorData(data);
+	
 	}
 	
 	@GetMapping("/gerarRelatorioAcessosPorDataEHora/{data}/{hora}")
 	public ResponseEntity<?> gerarRelatorioAcessoPorDataEHora(@PathVariable("data") String data,
 			@PathVariable("hora") String hora){
+	
 		return acessoService.gerarRelatorioAcessosPorDataEHora(data, hora);
+	
 	}
-	
-	
-	
 	
 }
