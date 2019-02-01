@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import br.unicap.c3.openmyway.openmyway.model.IntegranteUniversidade;
 import br.unicap.c3.openmyway.openmyway.model.Usuario;
@@ -22,6 +23,7 @@ import br.unicap.c3.openmyway.openmyway.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin
 public class UsuarioController {
 	
 	@Autowired
