@@ -11,6 +11,7 @@ import br.unicap.c3.openmyway.openmyway.model.Acesso;
 
 @RestController
 @RequestMapping("/acesso")
+@CrossOrigin
 public class AcessoController {
 
 	@Autowired
