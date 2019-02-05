@@ -175,7 +175,7 @@ usuario/gerarRelatorioAcessosPorCpf/String
 
 Obs: No lugar do String, substituir por cpf.
 
-Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
+Retorno: OK com um usuario(que por sua vez tem uma lista de acessos), NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
 
 Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
 
@@ -185,7 +185,7 @@ usuario/gerarRelatorioAcessosPorCodigoIdentificacao/String
 
 Obs: No lugar do String, substituir por codigoIdentificacao.
 
-Retorno: OK com uma lista de acessos, NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
+Retorno: OK com um usuario(que por sua vez tem uma lista de acessos), NOT_ACCEPTABLE com texto(se os parametros passados não estiverem certos), NOT_FOUND com texto(se o usuario não existe), NOT_FOUND com a lista de usuarios vazia.
 
 Obs: Um usuario tem uma lista de acessos e acessos tem usuario, mas para essa funcionalidade, acesso tem um usuario e este usuario ta null (para evitar looping na hora de exibição).
 
